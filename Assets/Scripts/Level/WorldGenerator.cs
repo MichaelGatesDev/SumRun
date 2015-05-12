@@ -36,6 +36,8 @@ public class WorldGenerator : MonoBehaviour
     public float global_y;
     //
     public GameObject[] prefabs;
+    public GameObject apple;
+    public GameObject goldenApple;
 
     // ========================================================================================\\
 
@@ -53,6 +55,9 @@ public class WorldGenerator : MonoBehaviour
 
         // start adding pieces
         StartCoroutine("AddPieces");
+
+        // Spawn apples
+        StartCoroutine("SpawnApples");
     }
 
     // ========================================================================================\\
@@ -182,7 +187,7 @@ public class WorldGenerator : MonoBehaviour
         while (addNewPieces)
         {
             AddNewPiece();
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1.0f);
         }
         yield return null;
     }
@@ -222,6 +227,45 @@ public class WorldGenerator : MonoBehaviour
         go.transform.position = newPos;
 
         lastGenerated = go;
+    }
+
+    
+    // ========================================================================================\\
+
+    private IEnumerator SpawnApples()
+    {
+        yield return new WaitForSeconds(1);
+        
+        while (addNewPieces)
+        {
+            AddNewApple();
+            yield return new WaitForSeconds(1.0f);
+        }
+        yield return null;
+    }
+
+    private void AddNewApple()
+    {
+        bool shouldSpawn = random.Next(0, 100) >= 50;
+
+        GameObject player = GameObject.Find("Player");
+
+        // if can spawn apple
+        if (shouldSpawn)
+        {
+            Vector3 position = new Vector3(player.transform.position.x + 25.0f, global_y + 4.5f, player.transform.position.z);
+            
+            bool shouldSpawnG = random.Next(0, 100) >= 80;
+
+            if (shouldSpawnG)
+            {
+                Instantiate(goldenApple, position, Quaternion.identity);
+            } else
+            {
+                Instantiate(apple, position, Quaternion.identity);
+            }
+        }
+
     }
 
 

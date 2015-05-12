@@ -167,6 +167,56 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
+--- !u!1001 &44177033
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 440016, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 110672, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+      propertyPath: m_Name
+      value: pf_reg_mid 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &44177034 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 110672, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
+  m_PrefabInternal: {fileID: 44177033}
 --- !u!1 &128025197
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +924,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 481606, guid: 4b7d810498e495e47b54e3603671eb9f, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b7d810498e495e47b54e3603671eb9f, type: 2}
@@ -916,7 +966,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 431822, guid: 218caa160bd564645a6ee7a809127179, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 218caa160bd564645a6ee7a809127179, type: 2}
@@ -1847,10 +1897,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1051394563 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 110672, guid: d4d4221e1750bcc48b6cc5a4bdf56e67, type: 2}
-  m_PrefabInternal: {fileID: 1051394562}
 --- !u!1 &1055633914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,7 +2771,15 @@ Prefab:
     - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: lastGenerated
       value: 
-      objectReference: {fileID: 1051394563}
+      objectReference: {fileID: 44177034}
+    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
+      propertyPath: apple
+      value: 
+      objectReference: {fileID: 111206, guid: 218caa160bd564645a6ee7a809127179, type: 2}
+    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
+      propertyPath: goldenApple
+      value: 
+      objectReference: {fileID: 151096, guid: 4b7d810498e495e47b54e3603671eb9f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
   m_IsPrefabParent: 0
