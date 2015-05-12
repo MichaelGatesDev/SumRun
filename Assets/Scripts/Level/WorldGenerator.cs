@@ -33,14 +33,7 @@ public class WorldGenerator : MonoBehaviour
     public GameObject lastGenerated;
     //
     public float x_spread = 6.0f;
-    public float xs_spread_x = 0.0f;
-    public float xs_spread_y = 0.0f;
-    public float was_xs_spread_x = 0.0f;
-    public float was_xs_spread_y = 0.0f;
-    public float s_spread_x = 0.0f;
-    public float s_spread_y = 0.0f;
-    public float was_s_spread_x = 0.0f;
-    public float was_s_spread_y = 0.0f;
+    public float global_y;
     //
     public GameObject[] prefabs;
 
@@ -189,7 +182,7 @@ public class WorldGenerator : MonoBehaviour
         while (addNewPieces)
         {
             AddNewPiece();
-            yield return new WaitForSeconds(1.1f);
+            yield return new WaitForSeconds(0.1f);
         }
         yield return null;
     }
@@ -212,52 +205,16 @@ public class WorldGenerator : MonoBehaviour
 
         Vector3 oldPos = lastGenerated.transform.position;
         float x = oldPos.x;
-        float y = oldPos.y;
+        float y = global_y;
         float z = oldPos.z;
-        
-        bool xs = false;
-        bool wasXS = false;
+
+
         if (toAdd.GetComponent<LevelPiece>().pieceType == LevelPieceType.EXTRA_SMALL)
         {
-            xs = true;
-        }        
-        if (lastGenerated.GetComponent<LevelPiece>().pieceType == LevelPieceType.EXTRA_SMALL)
-        {
-            wasXS = true;
+            y += 2.0f;
+            x -= 1.0f;
         }
 
-        bool s = false;
-        bool wasS = false;
-        if (toAdd.GetComponent<LevelPiece>().pieceType == LevelPieceType.EXTRA_SMALL)
-        {
-            s = true;
-        }        
-        if (lastGenerated.GetComponent<LevelPiece>().pieceType == LevelPieceType.EXTRA_SMALL)
-        {
-            wasS = true;
-        }
-
-        if (xs)
-        {
-            x += xs_spread_x;
-            y += xs_spread_y;
-        }
-        if (wasXS)
-        {
-            x += was_xs_spread_x;
-            y += was_xs_spread_y;
-        }
-        
-        if (s)
-        {
-            x += s_spread_x;
-            y += s_spread_y;
-        }
-        if (wasS)
-        {
-            x += was_s_spread_x;
-            y += was_s_spread_y;
-        }
 
         Vector3 newPos = new Vector3(x + x_spread, y, z);
 
