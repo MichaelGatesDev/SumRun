@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     //
     private int score;
     private bool alive;
+    private GameObject player;
 
     // ========================================================================================\\
 
@@ -22,7 +23,7 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    
+        GameObject.Find("DeathBarrier").transform.position = player.transform.position - new Vector3(0, 10, 0);
     }
     
     // ========================================================================================\\
@@ -33,6 +34,8 @@ public class LevelManager : MonoBehaviour
         {
             Object o = Instantiate(playerPrefab, spawnPosition.transform.position, Quaternion.identity);
             o.name = "Player";
+
+            player = GameObject.Find("Player");
         }
     }
     
