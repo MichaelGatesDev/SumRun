@@ -22,7 +22,6 @@ public class ItemApple : MonoBehaviour
     void OnTriggerEnter2D(Collider2D entered)
     {
         lm.AddScore(1 * (gold ? 5 : 1));
-        
 
         Destroy(gameObject);
     }
