@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     private int score;
     private bool alive;
     private GameObject player;
+    private GameObject deathBarrier;
 
     // ========================================================================================\\
 
@@ -18,12 +19,18 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         SpawnPlayer();
+
+        deathBarrier = GameObject.Find("DeathBarrier");
     }
     
     // Update is called once per frame
     void Update()
     {
-        GameObject.Find("DeathBarrier").transform.position = player.transform.position - new Vector3(0, 10, 0);
+
+
+
+
+        deathBarrier.transform.position = new Vector3(player.transform.position.x, deathBarrier.transform.position.y, 0);
     }
     
     // ========================================================================================\\
@@ -37,6 +44,11 @@ public class LevelManager : MonoBehaviour
 
             player = GameObject.Find("Player");
         }
+    }
+
+    public void KillPlayer()
+    {
+        Debug.Log("death to ye!");
     }
     
     // ========================================================================================\\
