@@ -23,65 +23,67 @@ using System;
 
 public class LevelPiece : MonoBehaviour
 {
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    private string id = "";
-    public GameObject prefab;
-    public float weight;
-    public LevelPieceType pieceType;
-    public Biome biome;
-    private GameObject player;
+	private string id = "";
+	public GameObject prefab;
+	public float weight;
+	public LevelPieceType pieceType;
+	public Biome biome;
+	private GameObject player;
     
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    public LevelPiece(GameObject prefab, float chanceMultiplier)
-    {
-        this.prefab = prefab;
-        this.weight = chanceMultiplier;
-    }
+	public LevelPiece (GameObject prefab, float chanceMultiplier)
+	{
+		this.prefab = prefab;
+		this.weight = chanceMultiplier;
+	}
     
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    void Start()
-    {
-        this.id = "GP_" + Guid.NewGuid().ToString("n");
-    }
+	void Start ()
+	{
+		this.id = "GP_" + Guid.NewGuid ().ToString ("n");
+	}
 
-    void Update()
-    {
-        if (player == null)
-        {
-            player = GameObject.Find("Player");
-        }
+	void Update ()
+	{
+		if (player == null) {
+			player = GameObject.Find ("Player");
+		}
 
-        if (player != null)
-        {
-            if (transform.position.x < player.transform.position.x - 15.0f)
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
+		if (player != null) {
+			if (transform.position.x < player.transform.position.x - 15.0f) {
+				Destroy (gameObject);
+			}
+		}
+	}
 
-    public GameObject GetPrefab()
-    {
-        return prefab;
-    }
+	public GameObject GetPrefab ()
+	{
+		return prefab;
+	}
 
-    public float GetWeight()
-    {
-        return weight;
-    }
+	public float GetWeight ()
+	{
+		return weight;
+	}
 
-    public string GetID()
-    {
-        return id;
-    }
+	public string GetID ()
+	{
+		return id;
+	}
 
-    public Biome GetBiome()
-    {
-        return biome;
-    }
+	public Biome GetBiome ()
+	{
+		return biome;
+	}
 
-    // ========================================================================================\\
+	public LevelPieceType GetPieceType ()
+	{
+		return pieceType;
+	}
+
+	// ========================================================================================\\
 }

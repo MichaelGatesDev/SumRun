@@ -49,7 +49,6 @@ public class Platform : MonoBehaviour
 			// set the player to grounded
 			//player.GetComponent<PlayerMove> ().SetGrounded (true);
 			player.GetComponent<TestPlayerAnimate> ().SetJumping (false);
-			Debug.Log("GROUNDED!");
 			// set player to 'no longer jumping' status
 			//StartCoroutine ("NotJumping");
 		}

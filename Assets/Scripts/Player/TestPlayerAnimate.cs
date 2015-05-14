@@ -8,7 +8,6 @@ public class TestPlayerAnimate : MonoBehaviour
 	private Animator anim;
 	private bool jumping;
 	private bool sliding;
-	private float lastJumpY;
 	public float runSpeed = 5.0f;
 	
 	// =========================================================== \\
@@ -40,8 +39,6 @@ public class TestPlayerAnimate : MonoBehaviour
 			return;
 
 		jumping = true;
-
-		lastJumpY = transform.position.y;
 
 		anim.SetBool ("jumping", true);
 

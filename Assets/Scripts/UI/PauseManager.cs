@@ -28,13 +28,11 @@ public class PauseManager : MonoBehaviour
 	public void Pause ()
 	{
 		StartCoroutine ("DoPause");
-		Debug.Log ("Pause");
 	}
 
 	public void Unpause ()
 	{
 		StartCoroutine ("DoUnpause");
-		Debug.Log ("Unpause");
 	}
     
 	private IEnumerator DoPause ()

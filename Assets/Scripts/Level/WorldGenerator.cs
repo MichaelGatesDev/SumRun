@@ -27,6 +27,8 @@ public class WorldGenerator : MonoBehaviour
 
 	private System.Random random;
 	private bool addNewPieces = true; // hardcoded
+	private int springCount = 0;
+	private int winterCount = 0;
 	//
 	private List<GameObject>possiblePieces;
 	//
@@ -34,6 +36,9 @@ public class WorldGenerator : MonoBehaviour
 	//
 	public float x_spread = 6.0f;
 	public float global_y;
+	//
+	public int max_spring = 20;
+	public int max_winter = 20;
 	//
 	public GameObject[] prefabs;
 	public GameObject apple;
@@ -107,13 +112,43 @@ public class WorldGenerator : MonoBehaviour
 		int ranNum = random.Next (0, possiblePieces.Count);
 
 		GameObject selected = possiblePieces [ranNum];
-		LevelPieceType nextPieceType = selected.GetComponent<LevelPiece> ().pieceType;
+		LevelPieceType nextPieceType = selected.GetComponent<LevelPiece> ().GetPieceType ();
+		Biome nextPieceBiome = selected.GetComponent<LevelPiece> ().GetBiome ();
 
 		if (lastGenerated.GetComponent<LevelPiece> () == null) {
 			return null;
 		}
 
 		LevelPieceType lastGeneratedType = lastGenerated.GetComponent<LevelPiece> ().pieceType;
+		Biome lastBiome = lastGenerated.GetComponent<LevelPiece> ().biome;
+
+
+		// if it generated quite a few spring pieces
+		if (lastBiome == Biome.SPRING && springCount >= max_spring) {
+			Debug.Log("Checking if it's time for winter");
+			int biomeChangeChance = random.Next (0, 100);
+
+			// 25% chance to change biome
+			if (biomeChangeChance >= 75) {
+				if (nextPieceBiome != Biome.WINTER) {
+					// cycle again
+					GetNextLikelyPiece ();
+				}
+			}
+		}
+		// else if it generated quite a few winter pieces
+		else if (lastBiome == Biome.WINTER && winterCount >= max_winter) {
+			Debug.Log("Checking if it's time for spring");
+			int biomeChangeChance = random.Next (0, 100);
+			
+			// 25% chance to change biome
+			if (biomeChangeChance >= 75) {
+				if (nextPieceBiome != Biome.SPRING) {
+					// cycle again
+					GetNextLikelyPiece ();
+				}
+			}
+		}
 
 		// if last generated was a beginning piece
 		if (lastGeneratedType == LevelPieceType.BEGIN) {
@@ -162,6 +197,18 @@ public class WorldGenerator : MonoBehaviour
 			}
 		}
 
+
+		/* Reset counters for the biome change */
+		
+		if (nextPieceBiome == Biome.WINTER) {
+			springCount = 0;
+			winterCount++;
+		} else if (nextPieceBiome == Biome.SPRING) {
+			winterCount = 0;
+			springCount++;
+		}
+
+
 		return selected;
 	}
     
@@ -196,13 +243,24 @@ public class WorldGenerator : MonoBehaviour
 		float z = oldPos.z;
 
 
-		if (toAdd.GetComponent<LevelPiece> ().pieceType == LevelPieceType.EXTRA_SMALL) {
+		LevelPiece lp = toAdd.GetComponent<LevelPiece> ();
+
+		if (lp.pieceType == LevelPieceType.EXTRA_SMALL) {
 			y += 2.0f;
 			x -= 1.0f;
 		}
 
+		if (lp.GetBiome () == Biome.SPRING) {
+			springCount ++;
+		} else if (lp.GetBiome () == Biome.WINTER) {
+			winterCount++;
+		}
 
-		Vector3 newPos = new Vector3 (x + x_spread, y, z);
+
+		
+		float z_spread = (float)random.NextDouble ();
+
+		Vector3 newPos = new Vector3 (x + x_spread, y, z + z_spread);
 
 		GameObject go = (GameObject)GameObject.Instantiate (toAdd, oldPos, Quaternion.identity);
 		go.transform.position = newPos;
@@ -221,6 +279,7 @@ public class WorldGenerator : MonoBehaviour
 			AddNewApple ();
 			yield return new WaitForSeconds (1.0f);
 		}
+
 		yield return null;
 	}
 
@@ -236,6 +295,7 @@ public class WorldGenerator : MonoBehaviour
 
 		// if can spawn apple
 		if (shouldSpawn) {
+
 			Vector3 position = new Vector3 (player.transform.position.x + 25.0f, global_y + 4.5f, player.transform.position.z);
             
 			bool shouldSpawnG = random.Next (0, 100) >= 80;
