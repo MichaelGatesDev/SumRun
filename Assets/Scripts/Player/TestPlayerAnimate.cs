@@ -3,9 +3,15 @@ using System.Collections;
 
 public class TestPlayerAnimate : MonoBehaviour
 {
+	// =========================================================== \\
+
 	private Animator anim;
 	private bool jumping;
 	private bool sliding;
+	private float lastJumpY;
+	public float runSpeed = 5.0f;
+	
+	// =========================================================== \\
 
 	// Use this for initialization
 	void Start ()
@@ -21,9 +27,12 @@ public class TestPlayerAnimate : MonoBehaviour
 		} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
 			Slide ();
 		} else {
-			//Run();
+			Run ();
 		}
 	}
+
+	// =========================================================== \\
+
 
 	private void Jump ()
 	{
@@ -32,9 +41,13 @@ public class TestPlayerAnimate : MonoBehaviour
 
 		jumping = true;
 
+		lastJumpY = transform.position.y;
+
 		anim.SetBool ("jumping", true);
 
-		Debug.Log ("Jump");
+		GetComponent<Rigidbody2D> ().AddForce (Vector2.up * 300.0f);
+
+		StartCoroutine ("CheckFinishJump");
 	}
     
 	private void Slide ()
@@ -46,18 +59,71 @@ public class TestPlayerAnimate : MonoBehaviour
 
 		anim.SetBool ("sliding", true);
        
-		Debug.Log ("Slide");
+		StartCoroutine ("CheckFinishSlide");
+
+		StartCoroutine ("SlideColliders");
+
 	}
     
 	private void Run ()
 	{
-		if (anim.GetInteger ("state") == 0)
+		gameObject.transform.Translate (Vector2.right * Time.deltaTime * runSpeed); // move the player
+
+		if (anim.GetBool ("running"))
 			return;
 
-		anim.SetInteger ("state", 0);
-        
-		Debug.Log ("Run");
+		anim.SetBool ("running", true);
+	}
+	
+	private IEnumerator CheckFinishJump ()
+	{
+		while (true) {
+			yield return new WaitForSeconds (0.1f);
+			if (!jumping) {
+				anim.SetBool ("jumping", false);
+				break;
+			}
+		}
+		yield break;
+	}
+	
+	private IEnumerator CheckFinishSlide ()
+	{
+		while (true) {
+			yield return new WaitForSeconds (1.0f);
+			sliding = false;
+			anim.SetBool ("sliding", false);
+			break;
+		}
+		yield break;
 	}
 
+	private IEnumerator SlideColliders ()
+	{
+		while (true) {
+			yield return new WaitForSeconds (0.4f);
+			
+			transform.FindChild ("BigCollider").GetComponent<BoxCollider2D> ().enabled = false;
+			transform.FindChild ("SmallCollider").GetComponent<BoxCollider2D> ().enabled = true;
+
+			yield return new WaitForSeconds (1.4f);
+
+			transform.FindChild ("BigCollider").GetComponent<BoxCollider2D> ().enabled = true;
+			transform.FindChild ("SmallCollider").GetComponent<BoxCollider2D> ().enabled = false;
+
+			break;
+		}
+		yield break;
+	}
+	
+	// =========================================================== \\
+
+	public void SetJumping (bool b)
+	{
+		this.jumping = b;
+	}
+
+	// =========================================================== \\
 }
+
 

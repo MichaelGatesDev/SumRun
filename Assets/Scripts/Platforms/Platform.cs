@@ -17,7 +17,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //------------------------------------------------------------------------------
-
 using UnityEngine;
 using System.Collections;
 
@@ -48,15 +47,18 @@ public class Platform : MonoBehaviour
 		// if the object that entered is tagged 'Player'
 		if (col.gameObject.tag == "Player") {
 			// set the player to grounded
-			player.GetComponent<PlayerMove> ().SetGrounded (true);
+			//player.GetComponent<PlayerMove> ().SetGrounded (true);
+			player.GetComponent<TestPlayerAnimate> ().SetJumping (false);
+			Debug.Log("GROUNDED!");
 			// set player to 'no longer jumping' status
-			StartCoroutine ("NotJumping");
+			//StartCoroutine ("NotJumping");
 		}
 	}
     
 	// when something exists the platform's collision box
 	void OnCollisionExit2D (Collision2D col)
 	{
+		/*
 		// if the object that entered is tagged 'player'
 		if (col.gameObject.tag == "Player") {
 			// if the player is above the ground
@@ -65,6 +67,7 @@ public class Platform : MonoBehaviour
 				player.GetComponent<PlayerMove> ().SetGrounded (false);
 			}
 		}
+		*/
 	}
     
 	// =========================================================== \\
