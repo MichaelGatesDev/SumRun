@@ -31,6 +31,8 @@ public class WorldGenerator : MonoBehaviour
 	private int winterCount = 0;
 	//
 	private List<GameObject>possiblePieces;
+	private List<GameObject>springPieces;
+	private List<GameObject>winterPieces;
 	//
 	public GameObject lastGenerated;
 	//
@@ -99,16 +101,24 @@ public class WorldGenerator : MonoBehaviour
 
 			int newWeight = (int)(goWeight * 100);
             
-			for (int i=0; i<newWeight; i++)
-				possiblePieces.Add (go);
+			for (int i=0; i<newWeight; i++) {
+				if (goLP.biome == Biome.SPRING) {
+					springPieces.Add (go);
+				} else if (goLP.biome == Biome.WINTER) {
+					winterPieces.Add (go);
+				}
+			}
+			//possiblePieces.Add (go);
 		}
 
         
 		yield return null;
 	}
     
+
 	private GameObject GetNextLikelyPiece ()
 	{
+		//TODO: finish biome grab
 		int ranNum = random.Next (0, possiblePieces.Count);
 
 		GameObject selected = possiblePieces [ranNum];
@@ -125,7 +135,7 @@ public class WorldGenerator : MonoBehaviour
 
 		// if it generated quite a few spring pieces
 		if (lastBiome == Biome.SPRING && springCount >= max_spring) {
-			Debug.Log("Checking if it's time for winter");
+			Debug.Log ("Checking if it's time for winter");
 			int biomeChangeChance = random.Next (0, 100);
 
 			// 25% chance to change biome
@@ -138,7 +148,7 @@ public class WorldGenerator : MonoBehaviour
 		}
 		// else if it generated quite a few winter pieces
 		else if (lastBiome == Biome.WINTER && winterCount >= max_winter) {
-			Debug.Log("Checking if it's time for spring");
+			Debug.Log ("Checking if it's time for spring");
 			int biomeChangeChance = random.Next (0, 100);
 			
 			// 25% chance to change biome
@@ -198,17 +208,6 @@ public class WorldGenerator : MonoBehaviour
 		}
 
 
-		/* Reset counters for the biome change */
-		
-		if (nextPieceBiome == Biome.WINTER) {
-			springCount = 0;
-			winterCount++;
-		} else if (nextPieceBiome == Biome.SPRING) {
-			winterCount = 0;
-			springCount++;
-		}
-
-
 		return selected;
 	}
     
@@ -251,8 +250,10 @@ public class WorldGenerator : MonoBehaviour
 		}
 
 		if (lp.GetBiome () == Biome.SPRING) {
+			winterCount = 0;
 			springCount ++;
 		} else if (lp.GetBiome () == Biome.WINTER) {
+			springCount = 0;
 			winterCount++;
 		}
 
