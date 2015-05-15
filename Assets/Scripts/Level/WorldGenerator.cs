@@ -30,7 +30,6 @@ public class WorldGenerator : MonoBehaviour
 	private int springCount = 0;
 	private int winterCount = 0;
 	private Biome forceBiome = Biome.SPRING;
-	private Biome currentBiome;
 	//
 	private List<GameObject>spring_startPieces;
 	private List<GameObject>spring_midPieces;
@@ -357,7 +356,7 @@ public class WorldGenerator : MonoBehaviour
 
 		while (addNewPieces) {
 			AddNewPiece ();
-			yield return new WaitForSeconds (1.0f);
+			yield return new WaitForSeconds (0.95f);
 		}
 		yield return null;
 	}
@@ -398,11 +397,6 @@ public class WorldGenerator : MonoBehaviour
 		} else if (lp.GetBiome () == Biome.WINTER) {
 			winterCount++;
 		}
-
-
-		// set current biome
-		currentBiome = lp.biome;
-
 		
 		float z_spread = (float)random.NextDouble ();
 
@@ -454,13 +448,5 @@ public class WorldGenerator : MonoBehaviour
 		}
 
 	}
-	
-	// ========================================================================================\\
-
-	public Biome getCurrentBiome()
-	{
-		return currentBiome;
-	}
-
 	// ========================================================================================\\
 }

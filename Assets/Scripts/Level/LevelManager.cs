@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour
 	private bool alive;
 	private GameObject player;
 	private GameObject deathBarrier;
+	private Biome currentBiome;
+
 
 	// ========================================================================================\\
 
@@ -67,6 +69,12 @@ public class LevelManager : MonoBehaviour
 	{
 		this.alive = b;
 	}
+
+	// set the biome that the player is currently in
+	public void SetBiome(Biome b)
+	{
+		this.currentBiome = b;
+	}
     
 	// ========================================================================================\\
 
@@ -82,6 +90,11 @@ public class LevelManager : MonoBehaviour
 		return score;
 	}
 
+	// returns the current biome that the player is in
+	public Biome GetCurrentBiome()
+	{
+		return currentBiome;
+	}
 
 	// ========================================================================================\\
 }

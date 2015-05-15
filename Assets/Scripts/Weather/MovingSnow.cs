@@ -6,13 +6,13 @@ public class MovingSnow : MonoBehaviour
 
 	private GameObject player;
 	private GameObject gm;
-	private WorldGenerator wg;
+	private LevelManager lm;
 
 	// Use this for initialization
 	void Start ()
 	{
 		gm = GameObject.Find ("GameManager");
-		wg = gm.GetComponent<WorldGenerator> ();
+		lm = gm.GetComponent<LevelManager>();
 	
 		StartCoroutine ("CheckState");
 	}
@@ -40,7 +40,7 @@ public class MovingSnow : MonoBehaviour
 			yield return new WaitForSeconds (1.0f);
 
 			// if not winter
-			if (wg.getCurrentBiome () != Biome.WINTER) {
+			if (lm.GetCurrentBiome() != Biome.WINTER) {
 				// hide object
 				GetComponent<ParticleSystem> ().Stop ();
 			}

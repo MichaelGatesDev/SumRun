@@ -25,11 +25,15 @@ public class Platform : MonoBehaviour
 	// =========================================================== \\
     
 	private GameObject player;                  // the player
-    
+	private GameObject gm;
+	private LevelManager lm;
+
 	// =========================================================== \\
     
 	void Start ()
 	{
+		gm = GameObject.Find("GameManager");
+		lm = gm.GetComponent<LevelManager>();
 	}
 
 	void Update ()
@@ -49,24 +53,13 @@ public class Platform : MonoBehaviour
 			// set the player to grounded
 			//player.GetComponent<PlayerMove> ().SetGrounded (true);
 			player.GetComponent<TestPlayerAnimate> ().SetJumping (false);
+
+			Biome biome = gameObject.transform.parent.gameObject.GetComponent<LevelPiece>().GetBiome();
+			lm.SetBiome(biome);
+
 			// set player to 'no longer jumping' status
 			//StartCoroutine ("NotJumping");
 		}
-	}
-    
-	// when something exists the platform's collision box
-	void OnCollisionExit2D (Collision2D col)
-	{
-		/*
-		// if the object that entered is tagged 'player'
-		if (col.gameObject.tag == "Player") {
-			// if the player is above the ground
-			if (player.transform.position.y > 4.3f) { //TODO: fix hardcode <<<<<<<<<<<<<<<<<
-				// set the player to 'not grounded' 
-				player.GetComponent<PlayerMove> ().SetGrounded (false);
-			}
-		}
-		*/
 	}
     
 	// =========================================================== \\
@@ -75,8 +68,8 @@ public class Platform : MonoBehaviour
 	private IEnumerator NotJumping ()
 	{
 		// set the player to 'not jumping'
-		player.GetComponent<PlayerMove> ().SetJumping (false);
-        
+		//TODO:
+
 		// return nothing
 		yield return null;
 	}
