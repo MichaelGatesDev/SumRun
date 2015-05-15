@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.959999979, z: 0}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d58b80596cd5cd40afe71ff5e272613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 131950, guid: 8dad25df103c1af4fa1229bde7d63506, type: 2}
+  playerPrefab: {fileID: 151562, guid: 2528225b07decb24aae68df9ff8323ba, type: 2}
   spawnPosition: {fileID: 0}
 --- !u!114 &11436616
 MonoBehaviour:
@@ -69,16 +69,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300bb61c63c84674dabb279d71f14cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyPiece: {fileID: 154330, guid: 28112aa14ba827f4a9f91b18c7eb11ca, type: 2}
   lastGenerated: {fileID: 0}
   x_spread: 6
-  xs_spread_x: -2
-  xs_spread_y: 3
-  was_xs_spread_x: 0
-  was_xs_spread_y: -3
-  s_spread_x: 0
-  s_spread_y: 1
-  was_s_spread_x: -2
-  was_s_spread_y: -3
+  global_y: 0
+  max_spring: 20
+  max_winter: 20
   prefabs:
   - {fileID: 154330, guid: 28112aa14ba827f4a9f91b18c7eb11ca, type: 2}
   - {fileID: 190288, guid: f462e1bd5f1ab9c428834a60899a2191, type: 2}
@@ -104,6 +100,32 @@ MonoBehaviour:
   - {fileID: 115260, guid: 651fdc19c02b2374b87e40732a774c4b, type: 2}
   - {fileID: 168310, guid: 8968bff0546485d4f96c7cc3a9f123de, type: 2}
   - {fileID: 103382, guid: 8a9f164a10483f64c81bf1cd40038f2c, type: 2}
+  - {fileID: 156776, guid: 99263b2b1c5cfd14eba65e90eabbe644, type: 2}
+  - {fileID: 132394, guid: e819d097201de7a4e8198e3bc7380bb5, type: 2}
+  - {fileID: 109878, guid: 95482a0cd212c3143a6597c505da78c6, type: 2}
+  - {fileID: 174194, guid: e72d5b19a6b4ae34d9b94073aa5433ac, type: 2}
+  - {fileID: 168704, guid: c3fff74f386fcc449b18213160b87a2a, type: 2}
+  - {fileID: 178646, guid: 20c6d7c19c365754ea288857c0798d25, type: 2}
+  - {fileID: 119830, guid: 03a3b70d554189e42aab38b526a5a824, type: 2}
+  - {fileID: 188674, guid: fc9bc095f9387ce4587f97a01f33d867, type: 2}
+  - {fileID: 184188, guid: e9cac0e0867acd94e96c13285e963e82, type: 2}
+  - {fileID: 136960, guid: 7a84db9a89fb0ac4dba909f27e1401aa, type: 2}
+  - {fileID: 132778, guid: fb7dc655bfdcf0f4a8535d1342dd0b7f, type: 2}
+  - {fileID: 177986, guid: 09aee44a607dd9345a883bd877ef34e1, type: 2}
+  - {fileID: 126976, guid: 09bf14d0ea0278049a6ffab8bb9b22fc, type: 2}
+  - {fileID: 175740, guid: 62410a8c796f7ad4288fbecacdad9cc9, type: 2}
+  - {fileID: 174868, guid: 5d290a6dee9b1f24ba61164652314650, type: 2}
+  - {fileID: 184630, guid: 806def30ea8c04a48ad0d7d49e91262f, type: 2}
+  - {fileID: 148224, guid: 0925151a531f23545878396c2f9168a2, type: 2}
+  - {fileID: 178014, guid: 8dcaef927203fc541bcfd0f62e2feabe, type: 2}
+  - {fileID: 185212, guid: 6665d2726b7089140b2fd6985d548ea1, type: 2}
+  - {fileID: 127040, guid: d611aebe792851e4f9217f7052f3c774, type: 2}
+  - {fileID: 125118, guid: 7a112f7a64d27b54d92129dbe6b9f7bd, type: 2}
+  - {fileID: 183872, guid: 522b981e20cd8784f8c10cb380af829b, type: 2}
+  - {fileID: 169908, guid: bd7df38f73c95bf479e2fcff1b718ce0, type: 2}
+  apple: {fileID: 111206, guid: 218caa160bd564645a6ee7a809127179, type: 2}
+  goldenApple: {fileID: 151096, guid: 4b7d810498e495e47b54e3603671eb9f, type: 2}
+  snowPrefab: {fileID: 100000, guid: 4dd8224782459694bba08791f63a7bb4, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

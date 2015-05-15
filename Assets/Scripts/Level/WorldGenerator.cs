@@ -29,10 +29,20 @@ public class WorldGenerator : MonoBehaviour
 	private bool addNewPieces = true; // hardcoded
 	private int springCount = 0;
 	private int winterCount = 0;
+	private Biome forceBiome = Biome.SPRING;
+	private Biome currentBiome;
 	//
-	private List<GameObject>possiblePieces;
-	private List<GameObject>springPieces;
-	private List<GameObject>winterPieces;
+	private List<GameObject>spring_startPieces;
+	private List<GameObject>spring_midPieces;
+	private List<GameObject>spring_endPieces;
+	private List<GameObject>spring_smallPieces;
+	private List<GameObject>spring_xsmallPieces;
+	private List<GameObject>winter_startPieces;
+	private List<GameObject>winter_midPieces;
+	private List<GameObject>winter_endPieces;
+	private List<GameObject>winter_smallPieces;
+	private List<GameObject>winter_xsmallPieces;
+	public GameObject emptyPiece;
 	//
 	public GameObject lastGenerated;
 	//
@@ -45,6 +55,7 @@ public class WorldGenerator : MonoBehaviour
 	public GameObject[] prefabs;
 	public GameObject apple;
 	public GameObject goldenApple;
+	public GameObject snowPrefab;
 
 	// ========================================================================================\\
 
@@ -79,8 +90,17 @@ public class WorldGenerator : MonoBehaviour
 	{
 		yield return new WaitForSeconds (0.5f);
 
-        
-		possiblePieces = new List<GameObject> ();
+		spring_startPieces = new List<GameObject> ();
+		spring_midPieces = new List<GameObject> ();
+		spring_endPieces = new List<GameObject> ();
+		spring_smallPieces = new List<GameObject> ();
+		spring_xsmallPieces = new List<GameObject> ();
+		winter_startPieces = new List<GameObject> ();
+		winter_midPieces = new List<GameObject> ();
+		winter_endPieces = new List<GameObject> ();
+		winter_smallPieces = new List<GameObject> ();
+		winter_xsmallPieces = new List<GameObject> ();
+
 
 		foreach (GameObject go in prefabs) {
 			if (go.GetComponent<LevelPiece> () == null)
@@ -101,6 +121,75 @@ public class WorldGenerator : MonoBehaviour
 
 			int newWeight = (int)(goWeight * 100);
             
+			
+			// begin pieces
+			if (goLP.pieceType == LevelPieceType.BEGIN) { 
+				if (goLP.biome == Biome.SPRING) { 
+					for (int i=0; i<newWeight; i++) { 
+						spring_startPieces.Add (goPrefab); 
+					} 
+				} else {
+					for (int i=0; i<newWeight; i++) { 
+						winter_startPieces.Add (goPrefab); 
+					} 
+				} 
+			}
+
+			// mid pieces
+			if (goLP.pieceType == LevelPieceType.MID) { 
+				if (goLP.biome == Biome.SPRING) { 
+					for (int i=0; i<newWeight; i++) { 
+						spring_midPieces.Add (goPrefab); 
+					} 
+				} else {
+					for (int i=0; i<newWeight; i++) { 
+						winter_midPieces.Add (goPrefab); 
+					} 
+				} 
+			}
+
+			// end pieces
+			if (goLP.pieceType == LevelPieceType.END) { 
+				if (goLP.biome == Biome.SPRING) { 
+					for (int i=0; i<newWeight; i++) { 
+						spring_endPieces.Add (goPrefab); 
+					} 
+				} else {
+					for (int i=0; i<newWeight; i++) { 
+						winter_endPieces.Add (goPrefab); 
+					} 
+				} 
+			}
+
+			// small pieces
+			if (goLP.pieceType == LevelPieceType.SMALL) { 
+				if (goLP.biome == Biome.SPRING) { 
+					for (int i=0; i<newWeight; i++) { 
+						spring_smallPieces.Add (goPrefab); 
+					} 
+				} else {
+					for (int i=0; i<newWeight; i++) { 
+						winter_smallPieces.Add (goPrefab); 
+					} 
+				} 
+			}
+
+			// extra small pieces
+			if (goLP.pieceType == LevelPieceType.EXTRA_SMALL) { 
+				if (goLP.biome == Biome.SPRING) { 
+					for (int i=0; i<newWeight; i++) { 
+						spring_xsmallPieces.Add (goPrefab); 
+					} 
+				} else {
+					for (int i=0; i<newWeight; i++) { 
+						winter_xsmallPieces.Add (goPrefab); 
+					} 
+				} 
+			}
+
+
+
+			/*
 			for (int i=0; i<newWeight; i++) {
 				if (goLP.biome == Biome.SPRING) {
 					springPieces.Add (go);
@@ -108,30 +197,21 @@ public class WorldGenerator : MonoBehaviour
 					winterPieces.Add (go);
 				}
 			}
-			//possiblePieces.Add (go);
+			*/
 		}
 
         
 		yield return null;
 	}
-    
 
 	private GameObject GetNextLikelyPiece ()
 	{
-		//TODO: finish biome grab
-		int ranNum = random.Next (0, possiblePieces.Count);
-
-		GameObject selected = possiblePieces [ranNum];
-		LevelPieceType nextPieceType = selected.GetComponent<LevelPiece> ().GetPieceType ();
-		Biome nextPieceBiome = selected.GetComponent<LevelPiece> ().GetBiome ();
-
 		if (lastGenerated.GetComponent<LevelPiece> () == null) {
 			return null;
 		}
 
 		LevelPieceType lastGeneratedType = lastGenerated.GetComponent<LevelPiece> ().pieceType;
 		Biome lastBiome = lastGenerated.GetComponent<LevelPiece> ().biome;
-
 
 		// if it generated quite a few spring pieces
 		if (lastBiome == Biome.SPRING && springCount >= max_spring) {
@@ -140,10 +220,9 @@ public class WorldGenerator : MonoBehaviour
 
 			// 25% chance to change biome
 			if (biomeChangeChance >= 75) {
-				if (nextPieceBiome != Biome.WINTER) {
-					// cycle again
-					GetNextLikelyPiece ();
-				}
+				forceBiome = Biome.WINTER;
+				springCount = 0;
+				winterCount = 0;
 			}
 		}
 		// else if it generated quite a few winter pieces
@@ -153,58 +232,119 @@ public class WorldGenerator : MonoBehaviour
 			
 			// 25% chance to change biome
 			if (biomeChangeChance >= 75) {
-				if (nextPieceBiome != Biome.SPRING) {
-					// cycle again
-					GetNextLikelyPiece ();
-				}
+				forceBiome = Biome.SPRING;
+				springCount = 0;
+				winterCount = 0;
 			}
 		}
 
+
+		GameObject selected = null;
+
+
 		// if last generated was a beginning piece
 		if (lastGeneratedType == LevelPieceType.BEGIN) {
-			if (nextPieceType != LevelPieceType.MID) {
-				return GetNextLikelyPiece ();
+
+			// has to be mid 
+
+			// if has to be winter
+			if (forceBiome == Biome.WINTER && lastBiome == Biome.WINTER) {
+				int ranPiece = random.Next (0, winter_midPieces.Count);
+				selected = winter_midPieces [ranPiece];
+			}
+			// if has to be spring
+			else {
+				int ranPiece = random.Next (0, spring_midPieces.Count);
+				selected = spring_midPieces [ranPiece];
 			}
 		}
 
 
         // if last generated was an ending piece
-        else if (lastGeneratedType == LevelPieceType.END) {
-			if (nextPieceType != LevelPieceType.EMPTY) {
-				return GetNextLikelyPiece ();
-			}
+		else if (lastGeneratedType == LevelPieceType.END) {
+			// has to be empty/air
+			selected = emptyPiece;
 		}
 
         
         // if last generated was a middle piece
         else if (lastGeneratedType == LevelPieceType.MID) {
-			if (nextPieceType == LevelPieceType.BEGIN || nextPieceType == LevelPieceType.EMPTY || nextPieceType == LevelPieceType.EXTRA_SMALL || nextPieceType == LevelPieceType.SMALL) {
-				return GetNextLikelyPiece ();
+
+			// has to be mid or end
+
+			List<GameObject> tempPieces = new List<GameObject> ();
+
+			// if has to be winter
+			if (lastBiome == Biome.WINTER) {
+				foreach (GameObject go in winter_midPieces) {
+					tempPieces.Add (go);
+				}
+				foreach (GameObject go in winter_endPieces) {
+					tempPieces.Add (go);
+				}
 			}
+			// if has to be spring
+			else {
+				foreach (GameObject go in spring_midPieces) {
+					tempPieces.Add (go);
+				}
+				foreach (GameObject go in spring_endPieces) {
+					tempPieces.Add (go);
+				}
+			}
+
+			int ranPiece = random.Next (0, tempPieces.Count);
+			selected = tempPieces [ranPiece];
 		}
 
         
         // if last generated piece was empty
         else if (lastGeneratedType == LevelPieceType.EMPTY) {
-			if (nextPieceType != LevelPieceType.SMALL && nextPieceType != LevelPieceType.EXTRA_SMALL && nextPieceType != LevelPieceType.BEGIN) {
-				return GetNextLikelyPiece ();
+			// has to be small, extra small, or begin
+
+			List<GameObject> tempPieces = new List<GameObject> ();
+			
+			// if has to be winter
+			if (forceBiome == Biome.WINTER) {
+				foreach (GameObject go in winter_smallPieces) {
+					tempPieces.Add (go);
+				}
+				foreach (GameObject go in winter_xsmallPieces) {
+					tempPieces.Add (go);
+				}
+				foreach (GameObject go in winter_startPieces) {
+					tempPieces.Add (go);
+				}
 			}
+			// if has to be spring
+			else {
+				foreach (GameObject go in spring_smallPieces) {
+					tempPieces.Add (go);
+				}
+				foreach (GameObject go in spring_xsmallPieces) {
+					tempPieces.Add (go);
+				}
+				foreach (GameObject go in spring_startPieces) {
+					tempPieces.Add (go);
+				}
+			}
+			
+			int ranPiece = random.Next (0, tempPieces.Count);
+			selected = tempPieces [ranPiece];
 		}
         
         
         // if last generated piece was a small island
         else if (lastGeneratedType == LevelPieceType.SMALL) {
-			if (nextPieceType != LevelPieceType.EMPTY) {
-				return GetNextLikelyPiece ();
-			}
+			// has to be empty
+			selected = emptyPiece;
 		}
         
         
         // if last generated piece was an extra small island
         else if (lastGeneratedType == LevelPieceType.EXTRA_SMALL) {
-			if (nextPieceType != LevelPieceType.EMPTY) {
-				return GetNextLikelyPiece ();
-			}
+			// has to be empty
+			selected = emptyPiece;
 		}
 
 
@@ -225,7 +365,7 @@ public class WorldGenerator : MonoBehaviour
 	private void AddNewPiece ()
 	{
 		if (lastGenerated == null) {
-			Debug.Log ("Houston, we have a problem.");
+			Debug.LogError ("Houston, we have a problem.");
 			return;
 		}
 
@@ -248,15 +388,20 @@ public class WorldGenerator : MonoBehaviour
 			y += 2.0f;
 			x -= 1.0f;
 		}
+		else if(lp.pieceType == LevelPieceType.SMALL)
+		{
+			y += 2.0f;
+		}
 
 		if (lp.GetBiome () == Biome.SPRING) {
-			winterCount = 0;
 			springCount ++;
 		} else if (lp.GetBiome () == Biome.WINTER) {
-			springCount = 0;
 			winterCount++;
 		}
 
+
+		// set current biome
+		currentBiome = lp.biome;
 
 		
 		float z_spread = (float)random.NextDouble ();
@@ -309,8 +454,13 @@ public class WorldGenerator : MonoBehaviour
 		}
 
 	}
+	
+	// ========================================================================================\\
 
+	public Biome getCurrentBiome()
+	{
+		return currentBiome;
+	}
 
-    
 	// ========================================================================================\\
 }

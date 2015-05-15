@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11495268}
   m_Layer: 0
   m_Name: pf_snow_left 6
-  m_TagString: Untagged
+  m_TagString: Model_Piece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc09213d716dcff49916eefc62ec7821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 119830}
   weight: .400000006
   pieceType: 0
   biome: 1
