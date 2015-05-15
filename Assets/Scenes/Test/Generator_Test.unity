@@ -96,11 +96,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 449654, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 9.64999962
+      value: 2.6099999
       objectReference: {fileID: 0}
     - target: {fileID: 449654, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 12.5200005
+      value: 8.59000015
       objectReference: {fileID: 0}
     - target: {fileID: 449654, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
       propertyPath: m_LocalPosition.z
@@ -128,7 +128,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19837136, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
       propertyPath: prewarm
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19837136, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
       propertyPath: InitialModule.startLifetime.scalar
@@ -145,6 +145,22 @@ Prefab:
     - target: {fileID: 19837136, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
       propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[0].value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19837136, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19837136, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
+      propertyPath: EmissionModule.rate.scalar
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 19837136, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
+      propertyPath: ShapeModule.randomDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19837136, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}
+      propertyPath: ShapeModule.boxZ
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b5604a082ffb9246a22e876dc4a8b4b, type: 2}

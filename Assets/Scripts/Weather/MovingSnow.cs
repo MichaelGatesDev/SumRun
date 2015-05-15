@@ -32,7 +32,6 @@ public class MovingSnow : MonoBehaviour
 		float z = transform.position.z;
 
 		transform.position = new Vector3 (x + 7.5f, y, z);
-
 	}
 
 	private IEnumerator CheckState ()
@@ -51,8 +50,8 @@ public class MovingSnow : MonoBehaviour
 				GetComponent<ParticleSystem> ().Play ();
 				Debug.Log ("It's winter!");
 			}
+
 		}
-		yield return null;
 	}
 
 }

@@ -25,7 +25,6 @@ public class LevelPiece : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	private string id = "";
 	public GameObject prefab;
 	public float weight;
 	public LevelPieceType pieceType;
@@ -44,7 +43,6 @@ public class LevelPiece : MonoBehaviour
 
 	void Start ()
 	{
-		this.id = "GP_" + Guid.NewGuid ().ToString ("n");
 	}
 
 	void Update ()
@@ -68,11 +66,6 @@ public class LevelPiece : MonoBehaviour
 	public float GetWeight ()
 	{
 		return weight;
-	}
-
-	public string GetID ()
-	{
-		return id;
 	}
 
 	public Biome GetBiome ()
