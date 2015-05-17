@@ -2882,7 +2882,7 @@ Prefab:
     - target: {fileID: 11406860, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 151562, guid: 2528225b07decb24aae68df9ff8323ba, type: 2}
+      objectReference: {fileID: 107326, guid: b962eea9ac91c2741b16dff79b8db7ce, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
   m_IsPrefabParent: 0
@@ -3055,7 +3055,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 12
 --- !u!1 &1769450583
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,7 +3101,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 4
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
