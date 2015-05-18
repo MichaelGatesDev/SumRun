@@ -2276,6 +2276,10 @@ Prefab:
       propertyPath: snowPrefab
       value: 
       objectReference: {fileID: 170374, guid: f29db28213c0b5c498b4f3fe3326c94f, type: 2}
+    - target: {fileID: 11406860, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 107326, guid: b962eea9ac91c2741b16dff79b8db7ce, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
   m_IsPrefabParent: 0

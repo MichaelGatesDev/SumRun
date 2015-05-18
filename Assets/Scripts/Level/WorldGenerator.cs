@@ -398,7 +398,7 @@ public class WorldGenerator : MonoBehaviour
 			winterCount++;
 		}
 		
-		float z_spread = (float)random.NextDouble ();
+		float z_spread = float.Parse(random.NextDouble() + "") + 1.0f;
 
 		Vector3 newPos = new Vector3 (x + x_spread, y, z + z_spread);
 
