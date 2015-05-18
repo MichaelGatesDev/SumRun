@@ -58,7 +58,7 @@ public class PauseManager : MonoBehaviour
 		paused = false;
         
 		Time.timeScale = normalTime;
-
+		
 		ppa.Play ("PausePanelFadeOut");
 		pma.Play ("PauseMenuRise"); //play fade in animation
         

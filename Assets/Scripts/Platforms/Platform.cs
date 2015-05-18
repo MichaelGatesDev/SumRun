@@ -24,7 +24,7 @@ public class Platform : MonoBehaviour
 {
 	// =========================================================== \\
     
-	private GameObject player;                  // the player
+	private GameObject player;
 	private GameObject gm;
 	private LevelManager lm;
 
@@ -50,30 +50,10 @@ public class Platform : MonoBehaviour
 	{
 		// if the object that entered is tagged 'Player'
 		if (col.gameObject.tag == "Player") {
-			// set the player to grounded
-			//player.GetComponent<PlayerMove> ().SetGrounded (true);
-			player.GetComponent<TestPlayerAnimate> ().SetJumping (false);
-
 			Biome biome = gameObject.transform.parent.gameObject.GetComponent<LevelPiece>().GetBiome();
 			lm.SetBiome(biome);
-
-			// set player to 'no longer jumping' status
-			//StartCoroutine ("NotJumping");
 		}
 	}
-    
-	// =========================================================== \\
-    
-	// Coroutine-ready function to make the player stop jumping
-	private IEnumerator NotJumping ()
-	{
-		// set the player to 'not jumping'
-		//TODO:
 
-		// return nothing
-		yield return null;
-	}
-    
-    
 	// =========================================================== \\
 }

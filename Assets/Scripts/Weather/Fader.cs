@@ -3,107 +3,98 @@ using System.Collections;
 
 public class Fader : MonoBehaviour
 {
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    public Transform[] waypoints;
-    private int currentWaypoint = 0;
-    private Renderer ren;
-    private bool fading = false;
-    public float interval = 10.0f;
-    public GameObject thunderLight;
-    public GameObject spotLight;
-    public ParticleSystem snowSystem;
-    public ParticleSystem rainSystem;
+	public Transform[] waypoints;
+	private int currentWaypoint = 0;
+	private Renderer ren;
+	private bool fading = false;
+	public float interval = 10.0f;
+	public GameObject thunderLight;
+	public GameObject spotLight;
+	public ParticleSystem snowSystem;
+	public ParticleSystem rainSystem;
 
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    // Use this for initialization
-    void Start()
-    {
-        StartCoroutine("SwitchBiome");
-        ren = GetComponent<Renderer>();
-    }
+	// Use this for initialization
+	void Start ()
+	{
+		StartCoroutine ("SwitchBiome");
+		ren = GetComponent<Renderer> ();
+	}
 
-    void Update()
-    {
-        if (currentWaypoint == 1)
-        {
-            thunderLight.GetComponent<Light>().enabled = true;
-        } else
-        {
-            thunderLight.GetComponent<Light>().enabled = false;
-        }
+	void Update ()
+	{
+		if (currentWaypoint == 1) {
+			thunderLight.GetComponent<Light> ().enabled = true;
+		} else {
+			thunderLight.GetComponent<Light> ().enabled = false;
+		}
         
-        if (currentWaypoint != 2)
-        {
-            snowSystem.GetComponent<ParticleSystem>().Pause();
-        } else
-        {
-            snowSystem.GetComponent<ParticleSystem>().Play();
-        }
-    }
+		if (currentWaypoint != 2) {
+			snowSystem.GetComponent<ParticleSystem> ().Pause ();
+		} else {
+			snowSystem.GetComponent<ParticleSystem> ().Play ();
+		}
+	}
     
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    private IEnumerator SwitchBiome()
-    {
-        while (true)
-        {
+	private IEnumerator SwitchBiome ()
+	{
+		while (true) {
 
-            yield return new WaitForSeconds(interval);
+			yield return new WaitForSeconds (interval);
             
-            StartCoroutine("FadeIn");
-        }
-    }
+			StartCoroutine ("FadeIn");
+		}
+	}
     
-    private IEnumerator FadeOut()
-    {
-        if (!fading)
-        {
-            fading = true;
+	private IEnumerator FadeOut ()
+	{
+		if (!fading) {
+			fading = true;
 
-            do
-            {
-                ren.material.color -= new Color(0, 0, 0, 0.025f);
+			do {
+				ren.material.color -= new Color (0, 0, 0, 0.025f);
                 
-                yield return new WaitForSeconds(0.01f);
-            } while(ren.material.color.a > 0.0f);
+				yield return new WaitForSeconds (0.01f);
+			} while(ren.material.color.a > 0.0f);
             
-            fading = false;
-        }
+			fading = false;
+		}
         
-        yield return null;
-    }
+		yield return null;
+	}
     
-    private IEnumerator FadeIn()
-    {
-        if (!fading)
-        {
-            fading = true;
+	private IEnumerator FadeIn ()
+	{
+		if (!fading) {
+			fading = true;
 
-            do
-            {
-                ren.material.color += new Color(0, 0, 0, 0.025f);
+			do {
+				ren.material.color += new Color (0, 0, 0, 0.025f);
 
-                yield return new WaitForSeconds(0.01f);
-            } while(ren.material.color.a < 1.0f);
+				yield return new WaitForSeconds (0.01f);
+			} while(ren.material.color.a < 1.0f);
             
-            fading = false;
+			fading = false;
 
-            // update waypoint
-            currentWaypoint = (currentWaypoint >= waypoints.Length - 1 ? 0 : currentWaypoint + 1);
+			// update waypoint
+			currentWaypoint = (currentWaypoint >= waypoints.Length - 1 ? 0 : currentWaypoint + 1);
            
-            // move main camera
-            CameraUtility.MoveMain(waypoints [currentWaypoint].position);
+			// move main camera
+			CameraUtility.MoveMain (waypoints [currentWaypoint].position);
 
-            // move spotlight
-            GameObject.Find("SpotlightTracker").GetComponent<SpotlightTracker>().Move(currentWaypoint);
+			// move spotlight
+			GameObject.Find ("SpotlightTracker").GetComponent<SpotlightTracker> ().Move (currentWaypoint);
 
-        }
+		}
 
-        yield return StartCoroutine("FadeOut");
-    }
+		yield return StartCoroutine ("FadeOut");
+	}
 
 
-    // ========================================================================================\\
+	// ========================================================================================\\
 }
