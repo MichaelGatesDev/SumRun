@@ -54,10 +54,11 @@ public class Platform : MonoBehaviour
 			Biome biome = gameObject.transform.parent.gameObject.GetComponent<LevelPiece>().GetBiome();
 			lm.SetBiome(biome);
 
-
+			/*
 			GameObject effect = (GameObject) Instantiate(dirtEffect, player.transform.position, Quaternion.identity);
 			effect.GetComponent<ParticleSystem>();
 			Destroy(dirtEffect, 1.0f);
+			*/
 		}
 	}
 

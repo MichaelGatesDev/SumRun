@@ -16,13 +16,28 @@ public class ParticleFadeInOut : MonoBehaviour
 	{
 		if (!fading) {
 			fading = true;
-			StartCoroutine ("DoFadeIn");
-			Debug.Log ("Fade in particles");
+			InvokeRepeating ("DoFadeIn", 0.1f, 0.01f);
+		}
+	}
+	
+	public void FadeOut ()
+	{
+		// ignore if the ParticleSystem is paused (already faded out)
+		if(ps.isPaused)
+			return;
+		
+		if (!fading) {
+			fading = true;
+			InvokeRepeating ("DoFadeOut", 0.1f, 0.01f);
 		}
 	}
 
 	private void DoFadeIn ()
 	{
+		if (ps.isPaused || !ps.isPlaying || ps.isStopped) {
+			ps.Play ();
+		}
+
 		ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps.particleCount];
 		ps.GetParticles (particles);
 			
@@ -31,22 +46,13 @@ public class ParticleFadeInOut : MonoBehaviour
 		
 			if (c.a == 1.0f) {
 				fading = false;
-				CancelInvoke("DoFadeIn");
+				CancelInvoke ("DoFadeIn");
 			}
 
 			particles [i].color = new Color (c.r, c.g, c.b, c.a + 0.01f);
 		}
 			
 		ps.SetParticles (particles, particles.Length);
-	}
-
-	public void FadeOut ()
-	{
-		if (!fading) {
-			fading = true;
-			InvokeRepeating ("DoFadeOut", 0.1f, 0.01f);
-			Debug.Log ("Fade out particles");
-		}
 	}
 
 	private void DoFadeOut ()
@@ -59,7 +65,8 @@ public class ParticleFadeInOut : MonoBehaviour
 			
 			if (c.a == 0.0f) {
 				fading = false;
-				CancelInvoke("DoFadeOut");
+				CancelInvoke ("DoFadeOut");
+				ps.Pause ();
 			}
 			
 			particles [i].color = new Color (c.r, c.g, c.b, c.a - 0.01f);

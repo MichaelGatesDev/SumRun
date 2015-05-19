@@ -22,16 +22,17 @@ public class MovingSnow : MonoBehaviour
 		while (true) {
 			yield return new WaitForSeconds (1.0f);
 
-			// if not winter
-			if (lm.GetCurrentBiome() != Biome.WINTER) {
-				// hide object
-				GetComponent<ParticleFadeInOut>().FadeOut();
-			}
+			
 			// if it is winter
-			else {
-				// show object
+			if(lm.GetCurrentBiome() == Biome.WINTER) {
+				// fade in snow
 				GetComponent<ParticleFadeInOut>().FadeIn();
-				Debug.Log ("It's winter!");
+			}
+
+			// if not winter
+			else {
+				// fade out snow
+				GetComponent<ParticleFadeInOut>().FadeOut();
 			}
 
 		}

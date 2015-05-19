@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 129024}
-  weight: 0
+  weight: .200000003
   pieceType: 2
   biome: 0
 --- !u!114 &11424004
@@ -329,6 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirtEffect: {fileID: 0}
 --- !u!212 &21201170
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirtEffect: {fileID: 0}
 --- !u!114 &11483728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -407,7 +408,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 985c29dc8159d9f41afcc1ae70b945bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21225946
