@@ -17,23 +17,6 @@ public class MovingSnow : MonoBehaviour
 		StartCoroutine ("CheckState");
 	}
 
-	// Update is called once per frame
-	void Update ()
-	{
-		if (player == null) {
-			GameObject tempPlayer = GameObject.Find ("Player");
-			if (tempPlayer == null)
-				return;
-			player = tempPlayer;
-		}
-
-		float x = player.transform.position.x;
-		float y = transform.position.y;
-		float z = transform.position.z;
-
-		transform.position = new Vector3 (x + 7.5f, y, z);
-	}
-
 	private IEnumerator CheckState ()
 	{
 		while (true) {
@@ -42,12 +25,12 @@ public class MovingSnow : MonoBehaviour
 			// if not winter
 			if (lm.GetCurrentBiome() != Biome.WINTER) {
 				// hide object
-				GetComponent<ParticleSystem> ().Stop ();
+				GetComponent<ParticleFadeInOut>().FadeOut();
 			}
 			// if it is winter
 			else {
 				// show object
-				GetComponent<ParticleSystem> ().Play ();
+				GetComponent<ParticleFadeInOut>().FadeIn();
 				Debug.Log ("It's winter!");
 			}
 
