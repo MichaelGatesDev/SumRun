@@ -378,8 +378,6 @@ public class WorldGenerator : MonoBehaviour
 		Vector3 oldPos = lastGenerated.transform.position;
 		float x = oldPos.x;
 		float y = global_y;
-		float z = oldPos.z;
-
 
 		LevelPiece lp = toAdd.GetComponent<LevelPiece> ();
 
@@ -398,9 +396,9 @@ public class WorldGenerator : MonoBehaviour
 			winterCount++;
 		}
 		
-		float z_spread = float.Parse(random.NextDouble() + "") + 1.0f;
+		float z_spread = float.Parse(random.NextDouble() + "");
 
-		Vector3 newPos = new Vector3 (x + x_spread, y, z + z_spread);
+		Vector3 newPos = new Vector3 (x + x_spread, y, z_spread);
 
 		GameObject go = (GameObject)GameObject.Instantiate (toAdd, oldPos, Quaternion.identity);
 		go.transform.position = newPos;
