@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 458862}
   - 50: {fileID: 5006044}
   - 114: {fileID: 11430064}
+  - 114: {fileID: 11458774}
   m_Layer: 8
   m_Name: Deer
   m_TagString: Player
@@ -218,6 +219,17 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4294967039
+--- !u!114 &11458774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9d96e0e0709b74b8783fd3424b0d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21250348
 SpriteRenderer:
   m_ObjectHideFlags: 1

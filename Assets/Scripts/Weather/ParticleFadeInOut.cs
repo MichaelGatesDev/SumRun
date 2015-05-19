@@ -10,6 +10,7 @@ public class ParticleFadeInOut : MonoBehaviour
 	void Start ()
 	{
 		ps = GetComponent<ParticleSystem> ();
+		FadeOut ();
 	}
 
 	public void FadeIn ()

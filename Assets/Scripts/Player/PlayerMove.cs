@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerMove : MonoBehaviour
 {
+	// ========================================================================================\\
+
 	Animator anim;
 	Rigidbody2D rb;
 	bool grounded;
@@ -12,7 +14,8 @@ public class PlayerMove : MonoBehaviour
 	bool sliding;
 
 	float runSpeed = 5.0f;
-
+	
+	// ========================================================================================\\
 
 	// Use this for initialization
 	void Start ()
@@ -45,6 +48,9 @@ public class PlayerMove : MonoBehaviour
 
 		anim.SetBool ("sliding", sliding);
 	}
+
+	
+	// ========================================================================================\\
 
 	private void Jump ()
 	{
@@ -83,5 +89,6 @@ public class PlayerMove : MonoBehaviour
 		}
 		yield break;
 	}
-
+	
+	// ========================================================================================\\
 }

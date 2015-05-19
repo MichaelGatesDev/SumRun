@@ -8,8 +8,6 @@ public class LevelManager : MonoBehaviour
 	public GameObject playerPrefab;
 	public GameObject spawnPosition;
 	//
-	private int score;
-	private bool alive;
 	private GameObject player;
 	private GameObject deathBarrier;
 	private Biome currentBiome;
@@ -58,18 +56,6 @@ public class LevelManager : MonoBehaviour
     
 	// ========================================================================================\\
 
-	// adds specified amount to player's score (apples)
-	public void AddScore (int n)
-	{
-		this.score += n;
-	}
-
-	// sets the player's alive status
-	public void SetAlive (bool b)
-	{
-		this.alive = b;
-	}
-
 	// set the biome that the player is currently in
 	public void SetBiome(Biome b)
 	{
@@ -77,18 +63,6 @@ public class LevelManager : MonoBehaviour
 	}
     
 	// ========================================================================================\\
-
-	// returns if the player is alive
-	public bool IsAlive ()
-	{
-		return alive;
-	}
-
-	// returns the player's current score
-	public int GetScore ()
-	{
-		return score;
-	}
 
 	// returns the current biome that the player is in
 	public Biome GetCurrentBiome()

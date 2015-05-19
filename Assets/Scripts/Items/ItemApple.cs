@@ -3,29 +3,26 @@ using System.Collections;
 
 public class ItemApple : MonoBehaviour
 {
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    public bool gold;
-    private GameObject gmObj;
-    private LevelManager lm;
-    //public EffectHandler effectHandler;
+	public bool gold;
+	private Player player;
     
-    // ========================================================================================\\
+	// ========================================================================================\\
 
-    // Use this for initialization
-    void Start()
-    {
-        gmObj = GameObject.Find("GameManager");
-        lm = gmObj.GetComponent<LevelManager>();
-    }
+	// Use this for initialization
+	void Start ()
+	{
+		player = GameObject.Find ("Player").GetComponent<Player> ();
+	}
 
-    void OnTriggerEnter2D(Collider2D entered)
-    {
-        lm.AddScore(1 * (gold ? 5 : 1));
+	void OnTriggerEnter2D (Collider2D entered)
+	{
+		player.AddApples (1 * (gold ? 5 : 1));
 
-        Destroy(gameObject);
-    }
+		Destroy (gameObject);
+	}
 
     
-    // ========================================================================================\\
+	// ========================================================================================\\
 }
