@@ -20,15 +20,7 @@ public class ScoreTracker : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		textObj.GetComponent<Text> ().text = getScore () + "";
-	}
-
-    
-	// ========================================================================================\\
-
-	private int getScore ()
-	{
-		return player.GetScore ();
+		textObj.GetComponent<Text> ().text = player.GetApples() + "";
 	}
     
 	// ========================================================================================\\

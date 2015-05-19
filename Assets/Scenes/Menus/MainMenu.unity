@@ -4793,13 +4793,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1910374400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2225f9a1c37157246b85b88c21159377, type: 3}
+  m_Script: {fileID: 11500000, guid: c3d39c0cc0025604c8292695e0baf9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPos: {fileID: 132045981}
-  endPos: {fileID: 1882143939}
-  speed: 5
-  behindPadding: 10
 --- !u!1 &1966223434
 GameObject:
   m_ObjectHideFlags: 0

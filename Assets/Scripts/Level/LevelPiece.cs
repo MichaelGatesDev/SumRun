@@ -29,7 +29,6 @@ public class LevelPiece : MonoBehaviour
 	public float weight;
 	public LevelPieceType pieceType;
 	public Biome biome;
-	private GameObject player;
     
 	// ========================================================================================\\
 
@@ -43,20 +42,21 @@ public class LevelPiece : MonoBehaviour
 
 	void Start ()
 	{
+		InvokeRepeating ("DestroyMyself", 0.5f, 0.5f);
 	}
+	
+	// ========================================================================================\\
 
-	void Update ()
+	private void DestroyMyself ()
 	{
-		if (player == null) {
-			player = GameObject.Find ("Player");
-		}
+		GameObject player = GameObject.Find ("Player");
 
-		if (player != null) {
-			if (transform.position.x < player.transform.position.x - 15.0f) {
-				Destroy (gameObject);
-			}
+		if (transform.position.x < player.transform.position.x - 15.0f) {
+			Destroy (gameObject);
 		}
 	}
+	
+	// ========================================================================================\\
 
 	public GameObject GetPrefab ()
 	{

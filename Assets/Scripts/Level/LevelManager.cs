@@ -48,12 +48,6 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	// kills the player
-	public void KillPlayer ()
-	{
-		Debug.Log ("death to ye!");
-	}
-    
 	// ========================================================================================\\
 
 	// set the biome that the player is currently in

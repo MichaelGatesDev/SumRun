@@ -24,37 +24,38 @@ using System.Collections.Generic;
 public class WorldGenerator : MonoBehaviour
 {
 	// ========================================================================================\\
+	
+	public GameObject[] prefabs;				// array of all platforms that can be spawned
+	public GameObject apple;					// apple prefab
+	public GameObject goldenApple;				// golden apple prefab
+	public GameObject snowPrefab;				// snow system prefab
+	public float x_spread = 6.0f;				// x axis spread between platforms
+	public float global_y;						// the global y position for platforms
+	//
+	public int max_spring = 20;					// the max amount of spring (biome) pieces allowed before winter
+	public int max_winter = 20;					// the max amount of winter (biome) pieces allowed before spring
+	//
+	public GameObject emptyPiece;				// 'blank' piece prefab
 
-	private System.Random random;
-	private bool addNewPieces = true; // hardcoded
-	private int springCount = 0;
-	private int winterCount = 0;
-	private Biome forceBiome = Biome.SPRING;
+
+	private System.Random random;				// The GOOD random random random random thing
+	private bool addNewPieces = true; 			// if new pieces can be added
+	private int springCount = 0;				// the amount of spring pieces so far
+	private int winterCount = 0;				// the maount of winter pieces so far
+	private Biome forceBiome = Biome.SPRING;	// the biome being forced to spawn
 	//
-	private List<GameObject>spring_startPieces;
-	private List<GameObject>spring_midPieces;
-	private List<GameObject>spring_endPieces;
-	private List<GameObject>spring_smallPieces;
-	private List<GameObject>spring_xsmallPieces;
-	private List<GameObject>winter_startPieces;
-	private List<GameObject>winter_midPieces;
-	private List<GameObject>winter_endPieces;
-	private List<GameObject>winter_smallPieces;
-	private List<GameObject>winter_xsmallPieces;
-	public GameObject emptyPiece;
+	private List<GameObject>spring_startPieces;	// collection of all spring start pieces
+	private List<GameObject>spring_midPieces;	// collection of all spring mid pieces
+	private List<GameObject>spring_endPieces;	// collection of all spring end pieces
+	private List<GameObject>spring_smallPieces;	// collection of all spring small pieces
+	private List<GameObject>spring_xsmallPieces;// collection of all spring extra small pieces
+	private List<GameObject>winter_startPieces;	// collection of all winter start pieces
+	private List<GameObject>winter_midPieces;	// collection of all winter mid pieces
+	private List<GameObject>winter_endPieces;	// collection of all winter end pieces
+	private List<GameObject>winter_smallPieces;	// collection of all winter small pieces
+	private List<GameObject>winter_xsmallPieces;// collection of all winter extra small pieces
 	//
-	public GameObject lastGenerated;
-	//
-	public float x_spread = 6.0f;
-	public float global_y;
-	//
-	public int max_spring = 20;
-	public int max_winter = 20;
-	//
-	public GameObject[] prefabs;
-	public GameObject apple;
-	public GameObject goldenApple;
-	public GameObject snowPrefab;
+	public GameObject lastGenerated;			// the last generated piece
 
 	// ========================================================================================\\
 
@@ -63,6 +64,8 @@ public class WorldGenerator : MonoBehaviour
 		this.random = new System.Random ();
 	}
 
+	
+	// ========================================================================================\\
 
 	// Use this for initialization
 	void Start ()

@@ -5,11 +5,10 @@ public class Player : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	private GameObject go;
-	private bool alive;
-	private int score;
-	private int apples;
-	private int lives;
+	private bool alive = false;
+	private int score = 0;
+	private int apples = 0;
+	private int lives = 1;
 	private bool poisoned;
 
 	// ========================================================================================\\
@@ -17,7 +16,7 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	
+		alive = true;
 	}
 	
 	// Update is called once per frame
@@ -28,8 +27,12 @@ public class Player : MonoBehaviour
 	
 	// ========================================================================================\\
 
-	public void Kill ()
+	public void Kill (PlayerDeathCause cause)
 	{
+		// set player to dead
+		alive = false;
+
+
 	}
 
 	public void Revive ()
@@ -39,7 +42,8 @@ public class Player : MonoBehaviour
 	public void Poison()
 	{
 	}
-
+	
+	// ========================================================================================\\
 
 	public void AddLives(int amt)
 	{

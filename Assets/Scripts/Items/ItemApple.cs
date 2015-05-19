@@ -18,8 +18,10 @@ public class ItemApple : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D entered)
 	{
+		// add apples to player
 		player.AddApples (1 * (gold ? 5 : 1));
 
+		// destroy apple object
 		Destroy (gameObject);
 	}
 
