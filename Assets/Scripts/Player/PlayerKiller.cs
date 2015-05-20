@@ -12,11 +12,11 @@ public class PlayerKiller : MonoBehaviour
     void OnTriggerEnter2D(Collider2D coll)
     {
 		// if object that entered is not the player
-        if (coll.gameObject.name != "Player")
+        if (coll.gameObject.name != "WalkCollider")
             return;
 
 		// kill the player
-		coll.gameObject.GetComponent<Player>().Kill(PlayerDeathCause.FALL);
+		coll.transform.parent.GetComponent<Player>().Kill(PlayerDeathCause.FALL);
     }
 
     // ========================================================================================\\

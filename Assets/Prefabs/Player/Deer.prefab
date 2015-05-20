@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.81999993, y: 1, z: 0}
+  m_LocalPosition: {x: -.660000026, y: 9.78999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 409328}
@@ -219,7 +219,10 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4294967039
+  runSpeed: 5
   groundEffect: {fileID: 114124, guid: 4570f29e95a0d3a4686f8a387f6bcd73, type: 2}
+  slideEffect: {fileID: 157404, guid: 8cd3bfb49983d3b4f8a8d0dc077ba6e8, type: 2}
+  crashEffect: {fileID: 130032, guid: fe9610e8a3b4b2f42affb8fc035aa86b, type: 2}
 --- !u!114 &11458774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9d96e0e0709b74b8783fd3424b0d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathSprite: {fileID: 21300000, guid: 14d659c074edf6541ad3d5e4195a11ab, type: 3}
 --- !u!212 &21250348
 SpriteRenderer:
   m_ObjectHideFlags: 1

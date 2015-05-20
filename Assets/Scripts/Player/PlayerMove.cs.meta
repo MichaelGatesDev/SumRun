@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 5f696ae2fd082534ea7926cf2e62d397
-timeCreated: 1431885147
+timeCreated: 1432133777
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - groundCheck: {instanceID: 0}
+  - groundEffect: {fileID: 114124, guid: 4570f29e95a0d3a4686f8a387f6bcd73, type: 2}
+  - slideEffect: {fileID: 157404, guid: 8cd3bfb49983d3b4f8a8d0dc077ba6e8, type: 2}
+  - crashEffect: {fileID: 130032, guid: fe9610e8a3b4b2f42affb8fc035aa86b, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

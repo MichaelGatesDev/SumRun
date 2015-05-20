@@ -5,18 +5,19 @@ public class PlayerMove : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	Animator anim;
-	Rigidbody2D rb;
-	bool grounded;
-	bool justJumped;
 	public Transform groundCheck;
-	float groundRadius = 0.1f;
 	public LayerMask whatIsGround;
-	bool sliding;
-
-	float runSpeed = 5.0f;
-
+	public float runSpeed = 5.0f;
 	public GameObject groundEffect;
+	public GameObject slideEffect;
+	public GameObject crashEffect;
+	//
+	private Player player;
+	private Animator anim;
+	private Rigidbody2D rb;
+	private bool grounded;
+	private float groundRadius = 0.1f;
+	private bool sliding;
 	
 	// ========================================================================================\\
 
@@ -25,6 +26,7 @@ public class PlayerMove : MonoBehaviour
 	{
 		anim = GetComponentInChildren<Animator> ();
 		rb = GetComponent<Rigidbody2D> ();
+		player = GameObject.Find ("Player").GetComponent<Player> ();
 	}
 	
 	// Update is called once per frame
@@ -32,13 +34,16 @@ public class PlayerMove : MonoBehaviour
 	{
 		//TODO: temporary controls for debug only, not mobile
 
+		// if press space, jump
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			Jump ();
-		} else if (Input.GetKeyUp (KeyCode.LeftShift)) {
+		}
+		// if press shift 
+		else if (Input.GetKeyUp (KeyCode.LeftShift)) {
 			Slide ();
 		}
 
-		Run();
+		Run ();
 	}
 
 	void FixedUpdate ()
@@ -50,6 +55,8 @@ public class PlayerMove : MonoBehaviour
 		anim.SetBool ("grounded", grounded);
 
 		anim.SetBool ("sliding", sliding);
+
+		anim.SetBool ("dead", !player.IsAlive ());
 	}
 
 	
@@ -57,53 +64,87 @@ public class PlayerMove : MonoBehaviour
 
 	private void Jump ()
 	{
+		if (!player.IsAlive ())
+			return;
+
 		// can only jump if on the ground
 		if (grounded) {
 			// can not jump if sliding
 			if (!sliding) {
 				rb.AddForce (Vector2.up * 300.0f);
-				justJumped = true;
-				InvokeRepeating("GroundTouch", 0.1f, 0.1f);
+				InvokeRepeating ("GroundTouch", 0.1f, 0.1f);
 			}
 		}
 	}
 
 	private void Slide ()
 	{
+		if (!player.IsAlive ())
+			return;
+
 		// can only slide if grounded
 		if (grounded) {
 			// if not already sliding
 			if (!sliding) {
 				sliding = true;
+				PlaySlideEffect();
 				Invoke ("EndSlide", 1.5f);
 			}
 		}
 	}
 
-	private void Run()
+	private void Run ()
 	{
-		transform.Translate(Vector2.right * Time.deltaTime * runSpeed);
+		if (!player.IsAlive ())
+			return;
+
+		transform.Translate (Vector2.right * Time.deltaTime * runSpeed);
 	}
 
-	private void GroundTouch()
+	private void GroundTouch ()
 	{
-		if(grounded)
-		{
-			justJumped = false;
-			CancelInvoke("GroundTouch");
-			PlayGroundEffect();
+		if (!player.IsAlive ())
+			return;
+
+		if (grounded) {
+			CancelInvoke ("GroundTouch");
+			PlayGroundEffect ();
 		}
 	}
 
 	private void EndSlide ()
 	{
+		if (!player.IsAlive ())
+			return;
+
 		sliding = false;
 	}
 
-
-	private void PlayGroundEffect()
+	private void PlayGroundEffect ()
 	{
-		GameObject go = (GameObject) Instantiate(groundEffect, transform.position, Quaternion.identity);
+		if (!player.IsAlive ())
+			return;
+
+		GameObject go = (GameObject)Instantiate (groundEffect, transform.position, Quaternion.identity);
+		Destroy (go, 1.0f);
+	}
+
+	private void PlaySlideEffect ()
+	{
+		if (!player.IsAlive ())
+			return;
+		
+		GameObject go = (GameObject)Instantiate (slideEffect, transform.position + new Vector3(1.0f,0,0), Quaternion.identity);
+		Destroy (go, 1.0f);
+	}
+
+	private void PlayCrashEffect ()
+	{
+		if (!player.IsAlive ())
+			return;
+		
+		GameObject go = (GameObject)Instantiate (groundEffect, transform.position, Quaternion.identity);
+		Destroy (go, 1.0f);
 	}
 	
 	// ========================================================================================\\

@@ -4,5 +4,5 @@
 	CRASH,
 	POISON,
 	MONSTER,
-
+	SNOWBALL,
 }

@@ -5,7 +5,9 @@ public class Player : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	private bool alive = false;
+	public Sprite deathSprite;
+	//
+	private bool alive = true;
 	private int score = 0;
 	private int apples = 0;
 	private int lives = 1;
@@ -16,7 +18,6 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		alive = true;
 	}
 	
 	// Update is called once per frame
@@ -32,7 +33,11 @@ public class Player : MonoBehaviour
 		// set player to dead
 		alive = false;
 
+		GetComponentInChildren<SpriteRenderer>().sprite = deathSprite;
 
+
+
+		GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300.0f);
 	}
 
 	public void Revive ()
@@ -40,6 +45,10 @@ public class Player : MonoBehaviour
 	}
 
 	public void Poison()
+	{
+	}
+
+	public void Crash()
 	{
 	}
 	
