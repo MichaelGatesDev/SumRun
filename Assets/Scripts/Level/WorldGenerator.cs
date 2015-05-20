@@ -59,24 +59,19 @@ public class WorldGenerator : MonoBehaviour
 
 	// ========================================================================================\\
 
-	public WorldGenerator ()
-	{
-		this.random = new System.Random ();
-	}
-
-	
-	// ========================================================================================\\
-
 	// Use this for initialization
 	void Start ()
 	{
+		// declare random
+		this.random = new System.Random ();
+
 		// setup the pieces
 		StartCoroutine ("SetupPieces");
 
 		// start adding pieces
 		StartCoroutine ("AddPieces");
 
-		// Spawn apples
+		// spawn apples
 		StartCoroutine ("SpawnApples");
 	}
 
@@ -90,8 +85,7 @@ public class WorldGenerator : MonoBehaviour
     
 	private IEnumerator SetupPieces ()
 	{
-		yield return new WaitForSeconds (0.5f);
-
+		// initialize empty Lists for all pieces
 		spring_startPieces = new List<GameObject> ();
 		spring_midPieces = new List<GameObject> ();
 		spring_endPieces = new List<GameObject> ();
@@ -104,26 +98,31 @@ public class WorldGenerator : MonoBehaviour
 		winter_xsmallPieces = new List<GameObject> ();
 
 
+		// iterate over all prefabs
 		foreach (GameObject go in prefabs) {
+
+			// if it doesn't have LevelPiece script, it's not a LevelPiece (or configured incorrectly)
 			if (go.GetComponent<LevelPiece> () == null)
 				continue;
             
-			LevelPiece goLP = go.GetComponent<LevelPiece> ();
+			LevelPiece goLP = go.GetComponent<LevelPiece> (); // the level piece
+			GameObject goPrefab = goLP.GetPrefab (); // the prefab (actual in-game piece)
             
-			GameObject goPrefab = goLP.GetPrefab ();
-            
+			// if the prefab is null, skip (configured incorrectly)
 			if (goPrefab == null)
 				continue;
             
+
 			float goWeight = goLP.GetWeight ();
             
+			// every piece can generate (otherwise, why is it there?)
 			if (goWeight <= 0.0f) {
 				goWeight = 0.1f;
 			}
 
+			// just multiply weight by 100 :P
 			int newWeight = (int)(goWeight * 100);
             
-			
 			// begin pieces
 			if (goLP.pieceType == LevelPieceType.BEGIN) { 
 				if (goLP.biome == Biome.SPRING) { 
@@ -188,36 +187,23 @@ public class WorldGenerator : MonoBehaviour
 					} 
 				} 
 			}
-
-
-
-			/*
-			for (int i=0; i<newWeight; i++) {
-				if (goLP.biome == Biome.SPRING) {
-					springPieces.Add (go);
-				} else if (goLP.biome == Biome.WINTER) {
-					winterPieces.Add (go);
-				}
-			}
-			*/
 		}
-
         
 		yield return null;
 	}
 
 	private GameObject GetNextLikelyPiece ()
 	{
+		// if last generated piece doesn't have LevelPiece script, can't generate next piece
 		if (lastGenerated.GetComponent<LevelPiece> () == null) {
 			return null;
 		}
 
-		LevelPieceType lastGeneratedType = lastGenerated.GetComponent<LevelPiece> ().pieceType;
-		Biome lastBiome = lastGenerated.GetComponent<LevelPiece> ().biome;
+		LevelPieceType lastGeneratedType = lastGenerated.GetComponent<LevelPiece> ().pieceType; // type of last generated
+		Biome lastBiome = lastGenerated.GetComponent<LevelPiece> ().biome; // biome of last generated
 
 		// if it generated quite a few spring pieces
 		if (lastBiome == Biome.SPRING && springCount >= max_spring) {
-			Debug.Log ("Checking if it's time for winter");
 			int biomeChangeChance = random.Next (0, 100);
 
 			// 25% chance to change biome
@@ -229,7 +215,6 @@ public class WorldGenerator : MonoBehaviour
 		}
 		// else if it generated quite a few winter pieces
 		else if (lastBiome == Biome.WINTER && winterCount >= max_winter) {
-			Debug.Log ("Checking if it's time for spring");
 			int biomeChangeChance = random.Next (0, 100);
 			
 			// 25% chance to change biome
@@ -241,6 +226,7 @@ public class WorldGenerator : MonoBehaviour
 		}
 
 
+		// selected GameObject to return, initialized
 		GameObject selected = null;
 
 
@@ -278,21 +264,13 @@ public class WorldGenerator : MonoBehaviour
 
 			// if has to be winter
 			if (lastBiome == Biome.WINTER) {
-				foreach (GameObject go in winter_midPieces) {
-					tempPieces.Add (go);
-				}
-				foreach (GameObject go in winter_endPieces) {
-					tempPieces.Add (go);
-				}
+				tempPieces.AddRange (winter_midPieces);
+				tempPieces.AddRange (winter_endPieces);
 			}
 			// if has to be spring
 			else {
-				foreach (GameObject go in spring_midPieces) {
-					tempPieces.Add (go);
-				}
-				foreach (GameObject go in spring_endPieces) {
-					tempPieces.Add (go);
-				}
+				tempPieces.AddRange (spring_midPieces);
+				tempPieces.AddRange (spring_endPieces);
 			}
 
 			int ranPiece = random.Next (0, tempPieces.Count);
@@ -308,27 +286,15 @@ public class WorldGenerator : MonoBehaviour
 			
 			// if has to be winter
 			if (forceBiome == Biome.WINTER) {
-				foreach (GameObject go in winter_smallPieces) {
-					tempPieces.Add (go);
-				}
-				foreach (GameObject go in winter_xsmallPieces) {
-					tempPieces.Add (go);
-				}
-				foreach (GameObject go in winter_startPieces) {
-					tempPieces.Add (go);
-				}
+				tempPieces.AddRange (winter_smallPieces);
+				tempPieces.AddRange (winter_xsmallPieces);
+				tempPieces.AddRange (winter_startPieces);
 			}
 			// if has to be spring
 			else {
-				foreach (GameObject go in spring_smallPieces) {
-					tempPieces.Add (go);
-				}
-				foreach (GameObject go in spring_xsmallPieces) {
-					tempPieces.Add (go);
-				}
-				foreach (GameObject go in spring_startPieces) {
-					tempPieces.Add (go);
-				}
+				tempPieces.AddRange (spring_smallPieces);
+				tempPieces.AddRange (spring_xsmallPieces);
+				tempPieces.AddRange (spring_startPieces);
 			}
 			
 			int ranPiece = random.Next (0, tempPieces.Count);
@@ -352,31 +318,40 @@ public class WorldGenerator : MonoBehaviour
 
 		return selected;
 	}
-    
+
+	// add piece Coroutine method
 	private IEnumerator AddPieces ()
 	{
 		yield return new WaitForSeconds (1);
 
+		// as long as we can add new pieces
 		while (addNewPieces) {
+			// add new piece
 			AddNewPiece ();
+			// wait almost a second
 			yield return new WaitForSeconds (0.95f);
 		}
 		yield return null;
 	}
 
+	// add new piece to game
 	private void AddNewPiece ()
 	{
+		// if last generated piece is corrupted/nonexistant, can't generate next piece
 		if (lastGenerated == null) {
-			Debug.LogError ("Houston, we have a problem.");
+			Debug.LogError ("Failed to generate: last generated piece is nonexistant.");
 			return;
 		}
 
+		// grab next likely piece
 		GameObject toAdd = GetNextLikelyPiece ();
 
+		// if objcet to add is corrupted/null
 		if (toAdd == null) {
-			Debug.LogError ("MAJOR ISSUE! PIECE CAN'T GENERATE.");
+			Debug.LogError ("Failed to generate: object to generate is nonexistant.");
 			return;
 		}
+
 
 		Vector3 oldPos = lastGenerated.transform.position;
 		float x = oldPos.x;
@@ -384,25 +359,34 @@ public class WorldGenerator : MonoBehaviour
 
 		LevelPiece lp = toAdd.GetComponent<LevelPiece> ();
 
+		// if it's an extra small piece, move it a little so it's actually possible to use
 		if (lp.pieceType == LevelPieceType.EXTRA_SMALL) {
 			y += 2.0f;
 			x -= 1.0f;
 		}
-		else if(lp.pieceType == LevelPieceType.SMALL)
-		{
+		// if it's a small piece, move it a ltitle so it's actually possible to use
+		else if (lp.pieceType == LevelPieceType.SMALL) {
 			y += 2.0f;
 		}
 
+		// if biome is spring
 		if (lp.GetBiome () == Biome.SPRING) {
+			// increment spring piece count
 			springCount ++;
-		} else if (lp.GetBiome () == Biome.WINTER) {
+		}
+		// if biome is winter
+		else if (lp.GetBiome () == Biome.WINTER) {
+			// increment winter piece count
 			winterCount++;
 		}
-		
-		float z_spread = float.Parse(random.NextDouble() + "");
+
+		// z_spread is a random value. 
+		// z_spread is necessary to prevent terrain sprites from overlapping and flasshing (z-fighting)
+		float z_spread = float.Parse (random.NextDouble () + "");
 
 		Vector3 newPos = new Vector3 (x + x_spread, y, z_spread);
 
+		// add in the new game object
 		GameObject go = (GameObject)GameObject.Instantiate (toAdd, oldPos, Quaternion.identity);
 		go.transform.position = newPos;
 

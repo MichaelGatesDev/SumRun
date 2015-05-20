@@ -9,15 +9,8 @@ public class MenuSearchLight : MonoBehaviour
 	public Transform endPos;
 	public float speed = 1.0f;
 	public float behindPadding = 10.0f;
-
 	
 	// ========================================================================================\\
-
-	// Use this for initialization
-	void Start ()
-	{
-		
-	}
 	
 	// Update is called once per frame
 	void Update ()
@@ -25,7 +18,6 @@ public class MenuSearchLight : MonoBehaviour
 		// if positions are null, ignore
 		if (startPos == null || endPos == null)
 			return;
-		
 
 		// as long as the light hasn't reached the end
 		if (transform.position.x < endPos.position.x) {

@@ -8,12 +8,15 @@ public class PlayerMove : MonoBehaviour
 	Animator anim;
 	Rigidbody2D rb;
 	bool grounded;
+	bool justJumped;
 	public Transform groundCheck;
 	float groundRadius = 0.1f;
 	public LayerMask whatIsGround;
 	bool sliding;
 
 	float runSpeed = 5.0f;
+
+	public GameObject groundEffect;
 	
 	// ========================================================================================\\
 
@@ -59,6 +62,8 @@ public class PlayerMove : MonoBehaviour
 			// can not jump if sliding
 			if (!sliding) {
 				rb.AddForce (Vector2.up * 300.0f);
+				justJumped = true;
+				InvokeRepeating("GroundTouch", 0.1f, 0.1f);
 			}
 		}
 	}
@@ -70,7 +75,7 @@ public class PlayerMove : MonoBehaviour
 			// if not already sliding
 			if (!sliding) {
 				sliding = true;
-				StartCoroutine ("EndSlide");
+				Invoke ("EndSlide", 1.5f);
 			}
 		}
 	}
@@ -80,14 +85,25 @@ public class PlayerMove : MonoBehaviour
 		transform.Translate(Vector2.right * Time.deltaTime * runSpeed);
 	}
 
-	private IEnumerator EndSlide ()
+	private void GroundTouch()
 	{
-		while (true) {
-			yield return new WaitForSeconds (1.5f);
-			sliding = false;
-			break;
+		if(grounded)
+		{
+			justJumped = false;
+			CancelInvoke("GroundTouch");
+			PlayGroundEffect();
 		}
-		yield break;
+	}
+
+	private void EndSlide ()
+	{
+		sliding = false;
+	}
+
+
+	private void PlayGroundEffect()
+	{
+		GameObject go = (GameObject) Instantiate(groundEffect, transform.position, Quaternion.identity);
 	}
 	
 	// ========================================================================================\\

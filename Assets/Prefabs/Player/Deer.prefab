@@ -219,6 +219,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4294967039
+  groundEffect: {fileID: 114124, guid: 4570f29e95a0d3a4686f8a387f6bcd73, type: 2}
 --- !u!114 &11458774
 MonoBehaviour:
   m_ObjectHideFlags: 1

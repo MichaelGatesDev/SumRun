@@ -3,32 +3,35 @@ using System.Collections;
 
 public class ParticleFadeInOut : MonoBehaviour
 {
+	// ========================================================================================\\
+
 	private ParticleSystem ps;
-	bool fading = false;
+	private bool fading = false;
+	
+	// ========================================================================================\\
 
 	// Use this for initialization
 	void Start ()
 	{
 		ps = GetComponent<ParticleSystem> ();
-		FadeOut ();
-	}
-
-	public void FadeIn ()
-	{
-		if (!fading) {
-			fading = true;
-			InvokeRepeating ("DoFadeIn", 0.1f, 0.01f);
-		}
 	}
 	
+	// ========================================================================================\\
+
+	// Fade In 
+	public void FadeIn ()
+	{
+		InvokeRepeating ("DoFadeIn", 0.1f, 0.01f);
+	}
+
+	// Fade Out
 	public void FadeOut ()
 	{
 		// ignore if the ParticleSystem is paused (already faded out)
-		if(ps.isPaused)
+		if (ps.isPaused)
 			return;
 		
 		if (!fading) {
-			fading = true;
 			InvokeRepeating ("DoFadeOut", 0.1f, 0.01f);
 		}
 	}
@@ -37,7 +40,11 @@ public class ParticleFadeInOut : MonoBehaviour
 	{
 		if (ps.isPaused || !ps.isPlaying || ps.isStopped) {
 			ps.Play ();
+		} else {
+			return;
 		}
+
+		fading = true;
 
 		ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps.particleCount];
 		ps.GetParticles (particles);
@@ -58,6 +65,8 @@ public class ParticleFadeInOut : MonoBehaviour
 
 	private void DoFadeOut ()
 	{
+		fading = true;
+
 		ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps.particleCount];
 		ps.GetParticles (particles);
 		
@@ -76,5 +85,5 @@ public class ParticleFadeInOut : MonoBehaviour
 		ps.SetParticles (particles, particles.Length);
 	}
 
-
+	// ========================================================================================\\
 }
