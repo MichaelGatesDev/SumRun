@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 		RaycastHit2D hit = Physics2D.Raycast (transform.position, Vector3.down, 30.0f, ~whatIsGround.value); 
 
 		if (hit.collider != null) {
-			if (hit.collider.tag == "Utils" || hit.collider.transform.parent.GetComponent<LevelPiece>() == null)
+			if (hit.collider.tag == "Utils" || hit.collider.tag == "Obstacles" || hit.collider.transform.parent.GetComponent<LevelPiece>() == null)
 				return;
 
 			Biome biome = hit.collider.transform.parent.GetComponent<LevelPiece> ().GetBiome ();
