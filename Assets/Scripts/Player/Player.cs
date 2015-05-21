@@ -6,12 +6,15 @@ public class Player : MonoBehaviour
 	// ========================================================================================\\
 
 	public Sprite deathSprite;
+	public LayerMask whatIsGround;
+	public ParticleSystem deathParticle;
 	//
 	private bool alive = true;
 	private int score = 0;
 	private int apples = 0;
 	private int lives = 1;
 	private bool poisoned;
+	private Location location;
 
 	// ========================================================================================\\
 
@@ -23,7 +26,7 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		CheckLocation ();
 	}
 	
 	// ========================================================================================\\
@@ -33,43 +36,59 @@ public class Player : MonoBehaviour
 		// set player to dead
 		alive = false;
 
-		GetComponentInChildren<SpriteRenderer>().sprite = deathSprite;
+		GetComponentInChildren<SpriteRenderer> ().sprite = deathSprite;
 
+		GetComponent<Rigidbody2D> ().AddForce (Vector2.up * 150.0f);
 
-
-		GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300.0f);
+		Object temp = Instantiate (deathParticle, transform.position, Quaternion.identity);
+		Destroy (temp, 5.0f);
 	}
 
 	public void Revive ()
 	{
 	}
 
-	public void Poison()
+	public void Poison ()
 	{
 	}
 
-	public void Crash()
+	public void Crash ()
 	{
 	}
 	
 	// ========================================================================================\\
 
-	public void AddLives(int amt)
+	private void CheckLocation ()
+	{
+		RaycastHit2D hit = Physics2D.Raycast (transform.position, Vector3.down, 30.0f, ~whatIsGround.value); 
+
+		if (hit.collider != null) {
+			if (hit.collider.tag == "Utils" || hit.collider.transform.parent.GetComponent<LevelPiece>() == null)
+				return;
+
+			Biome biome = hit.collider.transform.parent.GetComponent<LevelPiece> ().GetBiome ();
+			location = new Location (gameObject.transform, biome);
+		}
+	}
+
+	// ========================================================================================\\
+
+	public void AddLives (int amt)
 	{
 		this.lives += amt;
 	}
 
-	public void RemoveLives(int amt)
+	public void RemoveLives (int amt)
 	{
 		this.lives -= amt;
 	}
 
-	public void AddApples(int amt)
+	public void AddApples (int amt)
 	{
 		this.apples += amt;
 	}
 
-	public void RemoveApples(int amt)
+	public void RemoveApples (int amt)
 	{
 		this.apples -= amt;
 	}
@@ -128,6 +147,11 @@ public class Player : MonoBehaviour
 	public bool IsPoisoned ()
 	{
 		return poisoned;
+	}
+
+	public Location GetLocation ()
+	{
+		return location;
 	}
 
 	// ========================================================================================\\

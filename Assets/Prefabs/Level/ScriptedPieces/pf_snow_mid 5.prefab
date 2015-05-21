@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 405014}
   - 114: {fileID: 11409538}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pf_snow_mid 5
   m_TagString: Model_Piece
   m_Icon: {fileID: 0}
@@ -124,7 +124,6 @@ GameObject:
   - 61: {fileID: 6116402}
   - 58: {fileID: 5836840}
   - 58: {fileID: 5862530}
-  - 114: {fileID: 11486304}
   m_Layer: 12
   m_Name: pf_snow_mid
   m_TagString: ground
@@ -289,18 +288,6 @@ MonoBehaviour:
   weight: .100000001
   pieceType: 1
   biome: 1
---- !u!114 &11486304
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dirtEffect: {fileID: 0}
 --- !u!212 &21230786
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 485246}
   - 114: {fileID: 11412560}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pf_reg_right 4
   m_TagString: Model_Piece
   m_Icon: {fileID: 0}
@@ -76,7 +76,6 @@ GameObject:
   - 61: {fileID: 6170850}
   - 58: {fileID: 5835284}
   - 58: {fileID: 5829724}
-  - 114: {fileID: 11453674}
   m_Layer: 12
   m_Name: pf_reg_right
   m_TagString: ground
@@ -289,18 +288,6 @@ MonoBehaviour:
   weight: .200000003
   pieceType: 2
   biome: 0
---- !u!114 &11453674
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dirtEffect: {fileID: 0}
 --- !u!212 &21211634
 SpriteRenderer:
   m_ObjectHideFlags: 1

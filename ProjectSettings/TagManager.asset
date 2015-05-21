@@ -7,6 +7,9 @@ TagManager:
   - Model_Piece
   - SpawnPoint
   - ground
+  - gen_ground
+  - Utils
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - 
   - 
   - Player
-  - 
+  - Platform
   - 
   - 
   - 

@@ -11,9 +11,10 @@ GameObject:
   - 114: {fileID: 11491524}
   - 114: {fileID: 11406860}
   - 114: {fileID: 11436616}
+  - 114: {fileID: 11473846}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: Utils
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 0, y: -14.6999998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +42,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d58b80596cd5cd40afe71ff5e272613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 151562, guid: 2528225b07decb24aae68df9ff8323ba, type: 2}
+  playerPrefab: {fileID: 107326, guid: b962eea9ac91c2741b16dff79b8db7ce, type: 2}
   spawnPosition: {fileID: 0}
 --- !u!114 &11436616
 MonoBehaviour:
@@ -58,6 +59,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &11473846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11184f51797bb46488d9b214feb49196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11491524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69,12 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300bb61c63c84674dabb279d71f14cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyPiece: {fileID: 154330, guid: 28112aa14ba827f4a9f91b18c7eb11ca, type: 2}
-  lastGenerated: {fileID: 0}
-  x_spread: 6
-  global_y: 0
-  max_spring: 20
-  max_winter: 20
   prefabs:
   - {fileID: 154330, guid: 28112aa14ba827f4a9f91b18c7eb11ca, type: 2}
   - {fileID: 190288, guid: f462e1bd5f1ab9c428834a60899a2191, type: 2}
@@ -126,6 +132,12 @@ MonoBehaviour:
   apple: {fileID: 111206, guid: 218caa160bd564645a6ee7a809127179, type: 2}
   goldenApple: {fileID: 151096, guid: 4b7d810498e495e47b54e3603671eb9f, type: 2}
   snowPrefab: {fileID: 100000, guid: 4dd8224782459694bba08791f63a7bb4, type: 2}
+  x_spread: 6
+  global_y: -13.6999998
+  max_spring: 20
+  max_winter: 20
+  emptyPiece: {fileID: 154330, guid: 28112aa14ba827f4a9f91b18c7eb11ca, type: 2}
+  lastGenerated: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

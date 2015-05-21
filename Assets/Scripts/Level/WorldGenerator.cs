@@ -36,8 +36,8 @@ public class WorldGenerator : MonoBehaviour
 	public int max_winter = 20;					// the max amount of winter (biome) pieces allowed before spring
 	//
 	public GameObject emptyPiece;				// 'blank' piece prefab
-
-
+	//
+	private Player player;						// the player!
 	private System.Random random;				// The GOOD random random random random thing
 	private bool addNewPieces = true; 			// if new pieces can be added
 	private int springCount = 0;				// the amount of spring pieces so far
@@ -73,6 +73,29 @@ public class WorldGenerator : MonoBehaviour
 
 		// spawn apples
 		StartCoroutine ("SpawnApples");
+	}
+
+	void Update ()
+	{
+		if (!player) {
+			GameObject temp = GameObject.Find ("Player");
+			if (!temp) {
+				return;
+			}
+			player = temp.GetComponent<Player> ();
+		}
+
+
+		if (player == null)
+			return;
+
+
+		if (!player.IsAlive()) {
+			StopCoroutine ("AddPieces");
+			StopCoroutine("SpawnApples");
+			Debug.Log ("Player died: stop generating!");
+		}
+
 	}
 
 	// ========================================================================================\\

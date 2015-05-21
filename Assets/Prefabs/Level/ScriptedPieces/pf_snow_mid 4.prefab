@@ -29,7 +29,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 484144}
   - 114: {fileID: 11445508}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pf_snow_mid 4
   m_TagString: Model_Piece
   m_Icon: {fileID: 0}
@@ -213,6 +213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  gm: {fileID: 0}
+  lm: {fileID: 0}
+  dirtEffect: {fileID: 0}
 --- !u!212 &21207258
 SpriteRenderer:
   m_ObjectHideFlags: 1

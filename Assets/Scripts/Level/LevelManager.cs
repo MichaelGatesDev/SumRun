@@ -49,20 +49,4 @@ public class LevelManager : MonoBehaviour
 	}
 
 	// ========================================================================================\\
-
-	// set the biome that the player is currently in
-	public void SetBiome(Biome b)
-	{
-		this.currentBiome = b;
-	}
-    
-	// ========================================================================================\\
-
-	// returns the current biome that the player is in
-	public Biome GetCurrentBiome()
-	{
-		return currentBiome;
-	}
-
-	// ========================================================================================\\
 }

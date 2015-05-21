@@ -7,6 +7,7 @@ public class ParticleFadeInOut : MonoBehaviour
 
 	private ParticleSystem ps;
 	private bool fading = false;
+	public int state;
 	
 	// ========================================================================================\\
 
@@ -38,12 +39,6 @@ public class ParticleFadeInOut : MonoBehaviour
 
 	private void DoFadeIn ()
 	{
-		if (ps.isPaused || !ps.isPlaying || ps.isStopped) {
-			ps.Play ();
-		} else {
-			return;
-		}
-
 		fading = true;
 
 		ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps.particleCount];
@@ -61,6 +56,7 @@ public class ParticleFadeInOut : MonoBehaviour
 		}
 			
 		ps.SetParticles (particles, particles.Length);
+		state = 1;
 	}
 
 	private void DoFadeOut ()
@@ -76,13 +72,13 @@ public class ParticleFadeInOut : MonoBehaviour
 			if (c.a == 0.0f) {
 				fading = false;
 				CancelInvoke ("DoFadeOut");
-				ps.Pause ();
 			}
 			
 			particles [i].color = new Color (c.r, c.g, c.b, c.a - 0.01f);
 		}
 		
 		ps.SetParticles (particles, particles.Length);
+		state = 0;
 	}
 
 	// ========================================================================================\\

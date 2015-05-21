@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: Fireflies
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -190,10 +190,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4278245609
+        rgba: 4278970624
       maxColor:
         serializedVersion: 2
-        rgba: 4288477439
+        rgba: 4288806812
       minMaxState: 2
     startSize:
       scalar: .300000012

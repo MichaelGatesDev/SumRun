@@ -28,7 +28,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 468570}
   - 114: {fileID: 11446532}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pf_snow_xsmall
   m_TagString: Model_Piece
   m_Icon: {fileID: 0}
