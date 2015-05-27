@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ButtonQuit : MonoBehaviour
+public class ButtonBackMain : MonoBehaviour
 {
 
-	
 	// Use this for initialization
 	void Start ()
 	{
@@ -19,7 +18,8 @@ public class ButtonQuit : MonoBehaviour
 	
 	public void OnPress ()
 	{
-
+		GameObject.Find ("MainCanvas").GetComponent<CanvasGroup> ().alpha = 1;
+		GameObject.Find ("OptionsCanvas").GetComponent<CanvasGroup> ().alpha = 0;
 	}
 
 }

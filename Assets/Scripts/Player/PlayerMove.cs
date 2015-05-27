@@ -26,7 +26,7 @@ public class PlayerMove : MonoBehaviour
 
 	public Transform groundCheck;
 	public LayerMask whatIsGround;
-	public float runSpeed = 5.0f;
+	public float runSpeed = 3.0f;
 	public GameObject groundEffect;
 	public GameObject slideEffect;
 	public GameObject crashEffect;
@@ -129,7 +129,7 @@ public class PlayerMove : MonoBehaviour
 		if (grounded) {
 			// can not jump if sliding
 			if (!sliding) {
-				rb.AddForce (Vector2.up * 300.0f);
+				rb.AddForce (Vector2.up * 400.0f);
 				InvokeRepeating ("GroundTouch", 0.1f, 0.1f);
 			}
 		}

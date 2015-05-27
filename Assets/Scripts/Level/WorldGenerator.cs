@@ -31,7 +31,6 @@ public class WorldGenerator : MonoBehaviour
 	public GameObject goldenApple;				// golden apple prefab
 	public GameObject poisonApple;				// poison apple (kills player)
 	public GameObject rottenApple;				// rotten apple (poisons player)
-	public GameObject snowPrefab;				// snow system prefab
 	public float x_spread = 6.0f;				// x axis spread between platforms
 	public float global_y;						// the global y position for platforms
 	//
@@ -42,6 +41,10 @@ public class WorldGenerator : MonoBehaviour
 	//
 	public int obstacleSpawnRate;				// the percentage (%) chance for an obstacle to spawn
 	public int appleSpawnRate;					// the percentage (%) chance for an apple to spawn
+	public int poisonAppleChance;				// the precentage (%) chance to spawn a poison apple
+	public int rottenAppleChance;				// the precentage (%) chance to spawn a rotten apple
+	public int goldenAppleChance;				// the precentage (%) chance to spawn a golden apple
+	public int appleChance;						// the precentage (%) chance to spawn a normal apple
 	//
 	private Player player;						// the player!
 	private System.Random random;				// The GOOD random random random random thing
@@ -472,22 +475,22 @@ public class WorldGenerator : MonoBehaviour
 		// position to spawn apple
 		Vector3 position = new Vector3 (player.transform.position.x + 25.0f, global_y + 4.5f, player.transform.position.z);
 
-		// chance to spawn apple
+		// chance of apple spawn type
 		int ran = random.Next (0, 100);
 		
 		// 5% chance
-		if (ran <= 5) {
+		if (ran <= poisonAppleChance) {
 			Instantiate (poisonApple, position, Quaternion.identity);
 		}
 		// 10% chance
-		else if (ran <= 10) {
+		else if (ran <= rottenAppleChance) {
 			Instantiate (rottenApple, position, Quaternion.identity);
 		}
 		// 40% chance
-		else if (ran <= 40) {
+		else if (ran <= goldenAppleChance) {
 			Instantiate (goldenApple, position, Quaternion.identity);
 			// 90% chance
-		} else if (ran <= 90) {
+		} else if (ran <= appleChance) {
 			Instantiate (apple, position, Quaternion.identity);
 		}
 	}

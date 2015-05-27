@@ -9,3 +9,25 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/MainMenu.unity
   - enabled: 1
     path: Assets/Scenes/Level.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/Debug.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/Art_Test.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/Fade_Test.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/Generator_Test.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/GUI_Test.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/MainMenu.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/Movement_Test.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/NPC_Test.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/ParticleTest.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/Sprite_test.unity
+  - enabled: 1
+    path: Assets/Scenes/Test/Sprite_test 2.unity
