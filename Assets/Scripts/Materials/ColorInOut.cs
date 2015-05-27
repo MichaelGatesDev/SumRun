@@ -20,29 +20,46 @@
 using UnityEngine;
 using System.Collections;
 
-public class FollowPlayerX : MonoBehaviour
+public class ColorInOut : MonoBehaviour
 {
-    private GameObject player;
-    public int xOffset;
+	public Color startColor;
+	public Color endColor;
+	public float duration;
+	private SpriteRenderer ren;
+	private bool entering = true;
+	private float t = 0;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        if (player == null)
-        {
-            player = GameObject.Find("Player");
-        }
+	// Use this for initialization
+	void Start ()
+	{
+		ren = GetComponent<SpriteRenderer> ();
+	}
 
-        float x = player.transform.position.x;
-        float y = transform.position.y;
-        float z = transform.position.z;
+	void Update ()
+	{
+		if (entering) {
+			ren.material.color = Color.Lerp (startColor, endColor, t);
 
+			if (t < 1) {
+				t += Time.deltaTime / duration;
+			}
 
-        transform.position = new Vector3(x + xOffset, y, z);
-    }
+			if (ren.material.color == endColor) {
+				entering = false;
+				t = 0;
+			}
+		} else {
+			ren.material.color = Color.Lerp (endColor, startColor, t);
+			
+			if (t < 1) {
+				t += Time.deltaTime / duration;
+			}
+
+			if (ren.material.color == startColor) {
+				entering = true;
+				t = 0;
+			}
+		}
+	}
+
 }

@@ -26,8 +26,11 @@ public class WorldGenerator : MonoBehaviour
 	// ========================================================================================\\
 	
 	public GameObject[] prefabs;				// array of all platforms that can be spawned
+	public GameObject[] obstacles;				// array of all obstacles that can be spawned
 	public GameObject apple;					// apple prefab
 	public GameObject goldenApple;				// golden apple prefab
+	public GameObject poisonApple;				// poison apple (kills player)
+	public GameObject rottenApple;				// rotten apple (poisons player)
 	public GameObject snowPrefab;				// snow system prefab
 	public float x_spread = 6.0f;				// x axis spread between platforms
 	public float global_y;						// the global y position for platforms
@@ -36,6 +39,9 @@ public class WorldGenerator : MonoBehaviour
 	public int max_winter = 20;					// the max amount of winter (biome) pieces allowed before spring
 	//
 	public GameObject emptyPiece;				// 'blank' piece prefab
+	//
+	public int obstacleSpawnRate;				// the percentage (%) chance for an obstacle to spawn
+	public int appleSpawnRate;					// the percentage (%) chance for an apple to spawn
 	//
 	private Player player;						// the player!
 	private System.Random random;				// The GOOD random random random random thing
@@ -71,12 +77,16 @@ public class WorldGenerator : MonoBehaviour
 		// start adding pieces
 		StartCoroutine ("AddPieces");
 
+		// start adding obstacles
+		InvokeRepeating ("SpawnObstacle", 1.0f, 1.0f);
+
 		// spawn apples
-		StartCoroutine ("SpawnApples");
+		InvokeRepeating ("SpawnApple", 1.0f, 1.0f);
 	}
 
 	void Update ()
 	{
+		// get the player if it doesn't exist 
 		if (!player) {
 			GameObject temp = GameObject.Find ("Player");
 			if (!temp) {
@@ -85,15 +95,18 @@ public class WorldGenerator : MonoBehaviour
 			player = temp.GetComponent<Player> ();
 		}
 
-
+		// if the player isn't alive, ignore
 		if (player == null)
 			return;
 
-
-		if (!player.IsAlive()) {
+		// if player is not alive
+		if (!player.IsAlive ()) {
+			// stop generating pieces
 			StopCoroutine ("AddPieces");
-			StopCoroutine("SpawnApples");
-			Debug.Log ("Player died: stop generating!");
+			// stop spawning apples
+			CancelInvoke ("SpawnApple");
+			// stop spawning obstacles
+			CancelInvoke ("SpawnObstacle");
 		}
 
 	}
@@ -101,7 +114,7 @@ public class WorldGenerator : MonoBehaviour
 	// ========================================================================================\\
 	/*
      * 
-     * World Generators really suck...
+     * 							World Generators really suck...
      * 
      */
 	// ========================================================================================\\
@@ -419,42 +432,65 @@ public class WorldGenerator : MonoBehaviour
     
 	// ========================================================================================\\
 
-	private IEnumerator SpawnApples ()
+	private void SpawnObstacle ()
 	{
-		yield return new WaitForSeconds (1);
-        
-		while (addNewPieces) {
-			AddNewApple ();
-			yield return new WaitForSeconds (1.0f);
+		LevelPieceType type = lastGenerated.GetComponent<LevelPiece> ().GetPieceType ();
+
+		// can only spawn if the last generated was a mid type
+		if (type == LevelPieceType.EMPTY || type == LevelPieceType.SMALL || type == LevelPieceType.EXTRA_SMALL) {
+			return;
 		}
 
-		yield return null;
+		if (random.Next (0, 100) <= obstacleSpawnRate) {
+			Vector3 position = new Vector3 (lastGenerated.transform.position.x, global_y + 3.8f, lastGenerated.transform.position.z);
+			GameObject obstacle = obstacles [random.Next (0, obstacles.Length - 1)];
+
+			// if obstacle is somehow null, ignore
+			if (obstacle == null)
+				return;
+
+			// spawn in object
+			Instantiate (obstacle, position, Quaternion.identity);
+		}
 	}
 
-	private void AddNewApple ()
+	private void SpawnApple ()
 	{
-		// if someone forgot to select the apple prefabs
-		if (apple == null || goldenApple == null)
+		// if someone (me?) forgot to set apple prefabs
+		if (!apple || !goldenApple || !poisonApple || !rottenApple)
 			return;
 
-		bool shouldSpawn = random.Next (0, 100) >= 50;
-
+		// if should spawn the apple
+		bool shouldSpawn = random.Next (0, 100) <= appleSpawnRate;
+		
 		GameObject player = GameObject.Find ("Player");
+		
+		// if can't spawn apple, ignore
+		if (!shouldSpawn)
+			return;
+			
+		// position to spawn apple
+		Vector3 position = new Vector3 (player.transform.position.x + 25.0f, global_y + 4.5f, player.transform.position.z);
 
-		// if can spawn apple
-		if (shouldSpawn) {
-
-			Vector3 position = new Vector3 (player.transform.position.x + 25.0f, global_y + 4.5f, player.transform.position.z);
-            
-			bool shouldSpawnG = random.Next (0, 100) >= 80;
-
-			if (shouldSpawnG) {
-				Instantiate (goldenApple, position, Quaternion.identity);
-			} else {
-				Instantiate (apple, position, Quaternion.identity);
-			}
+		// chance to spawn apple
+		int ran = random.Next (0, 100);
+		
+		// 5% chance
+		if (ran <= 5) {
+			Instantiate (poisonApple, position, Quaternion.identity);
 		}
-
+		// 10% chance
+		else if (ran <= 10) {
+			Instantiate (rottenApple, position, Quaternion.identity);
+		}
+		// 40% chance
+		else if (ran <= 40) {
+			Instantiate (goldenApple, position, Quaternion.identity);
+			// 90% chance
+		} else if (ran <= 90) {
+			Instantiate (apple, position, Quaternion.identity);
+		}
 	}
+
 	// ========================================================================================\\
 }

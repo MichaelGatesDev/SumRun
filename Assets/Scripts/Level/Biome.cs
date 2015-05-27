@@ -1,5 +1,3 @@
-//  Biome.cs
-//
 //  Author:
 //       Michael Gates <michaelgatesdev@gmail.com>
 //
