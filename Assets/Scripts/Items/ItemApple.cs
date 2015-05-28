@@ -24,18 +24,10 @@ public class ItemApple : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	public enum AppleType 
-	{
-		NORMAL,
-		GOLD,
-		ROTTEN,
-		POISON,
-	}
-
-	// ========================================================================================\\
-
-	public AppleType type;
-	private Player player;
+	public AppleType type;				// the type of apple
+	public ParticleSystem effect;		// the effect to play (if one exists)
+	private Player player;				// the player
+	private Object o;					// the effect spawned-in
 	
 	// ========================================================================================\\
 
@@ -43,33 +35,49 @@ public class ItemApple : MonoBehaviour
 	void Start ()
 	{
 		player = GameObject.Find ("Player").GetComponent<Player> ();
+
+		// start particles
+		StartParticles ();
 	}
 
+	// when a player touches it
 	void OnTriggerEnter2D (Collider2D entered)
 	{
 		// if fairly normal apple types
-		if(type == AppleType.NORMAL || type == AppleType.GOLD)
-		{
+		if (type == AppleType.NORMAL || type == AppleType.GOLD) {
 			// add apples to player
 			player.AddApples (1 * (type == AppleType.GOLD ? 5 : 1));
 		}
 		// if rotten apple
-		else if(type == AppleType.ROTTEN)
-		{
+		else if (type == AppleType.ROTTEN) {
 			// remove half of player's apples
-			player.RemoveApples(player.GetApples() / 2);
+			player.RemoveApples (player.GetApples () / 2);
 			// poison the player
-			player.Poison();
+			player.Poison ();
 		}
 		// if poison apple
-		else if(type == AppleType.POISON)
-		{
+		else if (type == AppleType.POISON) {
 			// kill the player because it's a poisonous apple
-			player.Kill(PlayerDeathCause.POISON);
+			player.Kill (PlayerDeathCause.POISON);
 		}
-
+		
+		// destroy particle effect
+		Destroy (o);
 		// destroy apple object
 		Destroy (gameObject);
+	}
+
+	// ========================================================================================\\
+
+
+	private void StartParticles ()
+	{
+		// if apple does not have an effect, ignore
+		if (effect == null)
+			return;
+
+		// create effect
+		o = Instantiate (effect, transform.position, Quaternion.identity);
 	}
 
     

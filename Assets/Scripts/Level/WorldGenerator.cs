@@ -65,6 +65,7 @@ public class WorldGenerator : MonoBehaviour
 	private List<GameObject>winter_xsmallPieces;// collection of all winter extra small pieces
 	//
 	public GameObject lastGenerated;			// the last generated piece
+	private AppleType lastAppleType;			// the last type of apple generated
 
 	// ========================================================================================\\
 
@@ -473,25 +474,33 @@ public class WorldGenerator : MonoBehaviour
 			return;
 			
 		// position to spawn apple
-		Vector3 position = new Vector3 (player.transform.position.x + 25.0f, global_y + 4.5f, player.transform.position.z);
+		Vector3 position = new Vector3 (lastGenerated.transform.position.x, global_y + 4.5f, player.transform.position.z);
 
 		// chance of apple spawn type
 		int ran = random.Next (0, 100);
-		
-		// 5% chance
-		if (ran <= poisonAppleChance) {
+
+		// can not be zero
+		if(ran == 0)
+			return;
+
+		// chance to spawn poison apple
+		if (ran <= poisonAppleChance && lastAppleType != AppleType.POISON) {
 			Instantiate (poisonApple, position, Quaternion.identity);
+			lastAppleType = AppleType.POISON;
 		}
-		// 10% chance
-		else if (ran <= rottenAppleChance) {
+		// chance to spawn rotten apple
+		else if (ran <= rottenAppleChance && lastAppleType != AppleType.ROTTEN) {
 			Instantiate (rottenApple, position, Quaternion.identity);
+			lastAppleType = AppleType.ROTTEN;
 		}
-		// 40% chance
-		else if (ran <= goldenAppleChance) {
+		// chance to spawn golden apple
+		else if (ran <= goldenAppleChance && lastAppleType != AppleType.GOLD) {
 			Instantiate (goldenApple, position, Quaternion.identity);
-			// 90% chance
+			lastAppleType = AppleType.GOLD;
+		// chance to spawn normal apple
 		} else if (ran <= appleChance) {
 			Instantiate (apple, position, Quaternion.identity);
+			lastAppleType = AppleType.NORMAL;
 		}
 	}
 

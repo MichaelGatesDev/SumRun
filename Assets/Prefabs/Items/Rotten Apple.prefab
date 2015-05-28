@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  effect: {fileID: 19823286, guid: 97ae96d4cca6ee2418a007a3bb37af87, type: 2}
 --- !u!212 &21255098
 SpriteRenderer:
   m_ObjectHideFlags: 1

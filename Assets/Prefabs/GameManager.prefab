@@ -129,14 +129,26 @@ MonoBehaviour:
   - {fileID: 125118, guid: 7a112f7a64d27b54d92129dbe6b9f7bd, type: 2}
   - {fileID: 183872, guid: 522b981e20cd8784f8c10cb380af829b, type: 2}
   - {fileID: 169908, guid: bd7df38f73c95bf479e2fcff1b718ce0, type: 2}
+  obstacles:
+  - {fileID: 115580, guid: 8a1e319c1efaa2844ab540a41ebd8558, type: 2}
+  - {fileID: 126054, guid: 9dccccef357e7324f9d3e44a21c871d7, type: 2}
+  - {fileID: 110718, guid: d7fe6ca2a0311cf47892a64f67f10ca0, type: 2}
+  - {fileID: 133906, guid: bee44209f33546141a21dd27fb47afa5, type: 2}
   apple: {fileID: 111206, guid: 218caa160bd564645a6ee7a809127179, type: 2}
   goldenApple: {fileID: 151096, guid: 4b7d810498e495e47b54e3603671eb9f, type: 2}
-  snowPrefab: {fileID: 100000, guid: 4dd8224782459694bba08791f63a7bb4, type: 2}
+  poisonApple: {fileID: 151096, guid: 026a77b5953f4364c83f284710cbade0, type: 2}
+  rottenApple: {fileID: 151096, guid: cb476140159a96443b3766ed7bc817cf, type: 2}
   x_spread: 6
   global_y: -13.6999998
   max_spring: 20
   max_winter: 20
   emptyPiece: {fileID: 154330, guid: 28112aa14ba827f4a9f91b18c7eb11ca, type: 2}
+  obstacleSpawnRate: 50
+  appleSpawnRate: 75
+  poisonAppleChance: 0
+  rottenAppleChance: 10
+  goldenAppleChance: 25
+  appleChance: 90
   lastGenerated: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

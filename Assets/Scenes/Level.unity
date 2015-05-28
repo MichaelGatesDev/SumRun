@@ -2689,10 +2689,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: obstacles.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 407020, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2723,8 +2719,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 407020, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11406860, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
+      propertyPath: spawnPosition
+      value: 
+      objectReference: {fileID: 636504934}
+    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
+      propertyPath: lastGenerated
+      value: 
+      objectReference: {fileID: 44177034}
     - target: {fileID: 11436616, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: mainUI.Array.data[0]
       value: 
@@ -2737,77 +2741,13 @@ Prefab:
       propertyPath: mainUI.Array.data[2]
       value: 
       objectReference: {fileID: 244200560}
-    - target: {fileID: 11406860, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: spawnPosition
-      value: 
-      objectReference: {fileID: 636504934}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: lastGenerated
-      value: 
-      objectReference: {fileID: 44177034}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: apple
-      value: 
-      objectReference: {fileID: 111206, guid: 218caa160bd564645a6ee7a809127179, type: 2}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: goldenApple
-      value: 
-      objectReference: {fileID: 151096, guid: 4b7d810498e495e47b54e3603671eb9f, type: 2}
-    - target: {fileID: 11406860, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 107326, guid: b962eea9ac91c2741b16dff79b8db7ce, type: 2}
-    - target: {fileID: 147462, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: m_TagString
-      value: Utils
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: global_y
-      value: -13.6999998
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: poisonApple
-      value: 
-      objectReference: {fileID: 151096, guid: 026a77b5953f4364c83f284710cbade0, type: 2}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: rottenApple
-      value: 
-      objectReference: {fileID: 151096, guid: cb476140159a96443b3766ed7bc817cf, type: 2}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: obstacles.Array.data[0]
-      value: 
-      objectReference: {fileID: 115580, guid: 8a1e319c1efaa2844ab540a41ebd8558, type: 2}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: obstacles.Array.data[1]
-      value: 
-      objectReference: {fileID: 126054, guid: 9dccccef357e7324f9d3e44a21c871d7, type: 2}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: obstacles.Array.data[2]
-      value: 
-      objectReference: {fileID: 110718, guid: d7fe6ca2a0311cf47892a64f67f10ca0, type: 2}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: obstacles.Array.data[3]
-      value: 
-      objectReference: {fileID: 133906, guid: bee44209f33546141a21dd27fb47afa5, type: 2}
     - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: obstacleSpawnRate
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: appleSpawnRate
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: rottenAppleChance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: goldenAppleChance
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: appleChance
-      value: 60
+      propertyPath: rottenAppleChance
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
