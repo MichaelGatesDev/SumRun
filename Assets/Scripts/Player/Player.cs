@@ -28,24 +28,33 @@ public class Player : MonoBehaviour
 	public LayerMask whatIsGround;
 	public ParticleSystem deathParticle;
 	//
+	private Vector3 spawnPos;
+	//
 	private bool alive = true;
 	private int score = 0;
 	private int apples = 0;
 	private int lives = 1;
 	private bool poisoned;
 	private Location location;
+	private int distance = 0;
 
 	// ========================================================================================\\
 
 	// Use this for initialization
 	void Start ()
 	{
+		distance = 0;
+		spawnPos = transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		CheckLocation ();
+
+
+		// set new distance
+		distance = (int) Vector3.Distance(spawnPos, transform.position);
 	}
 	
 	// ========================================================================================\\

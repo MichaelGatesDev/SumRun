@@ -45,6 +45,8 @@ public class WorldGenerator : MonoBehaviour
 	public int rottenAppleChance;				// the precentage (%) chance to spawn a rotten apple
 	public int goldenAppleChance;				// the precentage (%) chance to spawn a golden apple
 	public int appleChance;						// the precentage (%) chance to spawn a normal apple
+	public int appleObstaclePadding;			// the padding between apples and obstacles
+	public int obstaclePadding;					// the padding between obstacles
 	//
 	private Player player;						// the player!
 	private System.Random random;				// The GOOD random random random random thing
@@ -65,6 +67,7 @@ public class WorldGenerator : MonoBehaviour
 	private List<GameObject>winter_xsmallPieces;// collection of all winter extra small pieces
 	//
 	public GameObject lastGenerated;			// the last generated piece
+	private GameObject lastGeneratedObstacle;	// the last generated obstacle
 	private AppleType lastAppleType;			// the last type of apple generated
 
 	// ========================================================================================\\
@@ -453,8 +456,17 @@ public class WorldGenerator : MonoBehaviour
 			if (obstacle == null)
 				return;
 
+
+			// if not the first obstacle being spawned
+			if(lastGeneratedObstacle != null)
+			{
+				// if obstacle spawning too close to last one, it's unfair
+				if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < obstaclePadding)
+					return;
+			}
+
 			// spawn in object
-			Instantiate (obstacle, position, Quaternion.identity);
+			lastGeneratedObstacle = (GameObject)Instantiate (obstacle, position, Quaternion.identity);
 		}
 	}
 
@@ -476,11 +488,21 @@ public class WorldGenerator : MonoBehaviour
 		// position to spawn apple
 		Vector3 position = new Vector3 (lastGenerated.transform.position.x, global_y + 4.5f, player.transform.position.z);
 
+
+		// can't spawn apples until obstacles can spawn??
+		//TODO: ok lol
+		if (lastGeneratedObstacle == null)
+			return;
+
+		// don't let apples spawn so close to obstacles
+		if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < appleObstaclePadding)
+			return;
+
 		// chance of apple spawn type
 		int ran = random.Next (0, 100);
 
 		// can not be zero
-		if(ran == 0)
+		if (ran == 0)
 			return;
 
 		// chance to spawn poison apple
@@ -497,7 +519,7 @@ public class WorldGenerator : MonoBehaviour
 		else if (ran <= goldenAppleChance && lastAppleType != AppleType.GOLD) {
 			Instantiate (goldenApple, position, Quaternion.identity);
 			lastAppleType = AppleType.GOLD;
-		// chance to spawn normal apple
+			// chance to spawn normal apple
 		} else if (ran <= appleChance) {
 			Instantiate (apple, position, Quaternion.identity);
 			lastAppleType = AppleType.NORMAL;

@@ -143,12 +143,14 @@ MonoBehaviour:
   max_spring: 20
   max_winter: 20
   emptyPiece: {fileID: 154330, guid: 28112aa14ba827f4a9f91b18c7eb11ca, type: 2}
-  obstacleSpawnRate: 50
+  obstacleSpawnRate: 30
   appleSpawnRate: 75
   poisonAppleChance: 0
-  rottenAppleChance: 10
+  rottenAppleChance: 5
   goldenAppleChance: 25
   appleChance: 90
+  appleObstaclePadding: 5
+  obstaclePadding: 15
   lastGenerated: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
