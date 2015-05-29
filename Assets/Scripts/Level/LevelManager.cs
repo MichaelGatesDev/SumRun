@@ -67,5 +67,10 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
+	public void Restart()
+	{
+		Application.LoadLevel("Level");
+	}
+
 	// ========================================================================================\\
 }

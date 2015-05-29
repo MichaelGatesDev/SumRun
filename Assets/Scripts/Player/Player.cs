@@ -18,13 +18,13 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //------------------------------------------------------------------------------
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	public Sprite deathSprite;
 	public LayerMask whatIsGround;
 	public ParticleSystem deathParticle;
 	//
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
 
 		// set new distance
-		distance = (int) Vector3.Distance(spawnPos, transform.position);
+		distance = (int)Vector3.Distance (spawnPos, transform.position);
 	}
 	
 	// ========================================================================================\\
@@ -64,12 +64,12 @@ public class Player : MonoBehaviour
 		// set player to dead
 		alive = false;
 
-		GetComponentInChildren<SpriteRenderer> ().sprite = deathSprite;
-
-		GetComponent<Rigidbody2D> ().AddForce (Vector2.up * 150.0f);
-
 		Object temp = Instantiate (deathParticle, transform.position, Quaternion.identity);
 		Destroy (temp, 5.0f);
+
+
+		// Show gameover screen
+		DoGameover ();
 	}
 
 	public void Revive ()
@@ -99,6 +99,18 @@ public class Player : MonoBehaviour
 			Biome biome = hit.collider.transform.parent.GetComponent<LevelPiece> ().GetBiome ();
 			location = new Location (gameObject.transform, biome);
 		}
+	}
+
+	private void DoGameover ()
+	{
+		Text lblDistance = GameObject.Find("LabelDistanceAmount").GetComponent<Text>();
+		lblDistance.text = distance + " meters";
+		Text lblApples = GameObject.Find("LabelApplesAmount").GetComponent<Text>();
+		lblApples.text = apples + "";
+		Text lblScore = GameObject.Find("LabelScoreAmount").GetComponent<Text>();
+		lblScore.text = (apples * 1000) + (distance * 100) + "";
+
+		GameObject.Find ("PanelEnd").GetComponent<Animator> ().SetBool ("gameover", true);
 	}
 
 	// ========================================================================================\\
@@ -182,6 +194,11 @@ public class Player : MonoBehaviour
 	public Location GetLocation ()
 	{
 		return location;
+	}
+
+	public int GetDistance ()
+	{
+		return distance;
 	}
 
 	// ========================================================================================\\

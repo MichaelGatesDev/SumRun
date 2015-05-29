@@ -22,77 +22,50 @@ using System.Collections;
 
 public class PauseManager : MonoBehaviour
 {
+	// ========================================================================================\\
+
 	private bool paused = false;
 	private float normalTime;
-	private Animator pma;
-	private Animator ppa;
-	public GameObject[] mainUI;
-	private GameObject pausecanvasObj;
-	private GameObject pausepanelObj;
+
+	private GameObject panelPause;
+	private Animator ppAnimator;
+	
+	// ========================================================================================\\
 
 	// Use this for initialization
 	void Start ()
 	{
-		pausecanvasObj = GameObject.Find ("PauseCanvas");
-		pausepanelObj = GameObject.Find ("PausePanel");
-
-		// iff the pause canvas is not null (otherwise probably debugging)
-		if (pausecanvasObj != null)
-			pma = pausecanvasObj.GetComponent<Animator> ();
-		// if the pause panel is not null (otherwise probably debugging)
-		if (pausepanelObj != null)
-			ppa = pausepanelObj.GetComponent<Animator> ();
+		panelPause = GameObject.Find("PanelPause");
+		ppAnimator = panelPause.GetComponent<Animator>();
 	}
-    
+	
+	// ========================================================================================\\
+
 	public void Pause ()
 	{
-		StartCoroutine ("DoPause");
+		paused = true;
+		
+		normalTime = Time.timeScale;
+		Time.timeScale = 0.0f;
+
+		ppAnimator.SetBool("paused", true);
 	}
 
 	public void Unpause ()
 	{
-		StartCoroutine ("DoUnpause");
-	}
-    
-	private IEnumerator DoPause ()
-	{
-		paused = true;
-		normalTime = Time.timeScale;
-
-		ppa.Play ("PausePanelFadeIn");
-		pma.Play ("PauseMenuFall"); //play fade in animation
-
-		yield return new WaitForSeconds (0.5f);
-
-		foreach (GameObject go in mainUI) {
-			go.SetActive (false);
-		}
-
-		Time.timeScale = 0.0f;
-		yield break;
-	}
-
-	private IEnumerator DoUnpause ()
-	{
 		paused = false;
-        
-		Time.timeScale = normalTime;
-		
-		ppa.Play ("PausePanelFadeOut");
-		pma.Play ("PauseMenuRise"); //play fade in animation
-        
-		yield return new WaitForSeconds (0.5f);
-        
-		foreach (GameObject go in mainUI) {
-			go.SetActive (true);
-		}
 
-		yield break;
+		Time.timeScale = normalTime;
+
+		ppAnimator.SetBool("paused", false);
 	}
+	
+	// ========================================================================================\\
 
 	public bool IsPaused ()
 	{
 		return paused;
 	}
-
+	
+	// ========================================================================================\\
 }

@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PauseMenuFall
+  m_Name: Fall
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,14 +19,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 353
-        inSlope: -706
-        outSlope: -706
+        value: 0
+        inSlope: -994
+        outSlope: -994
         tangentMode: 10
       - time: .5
-        value: 0
-        inSlope: -706
-        outSlope: -706
+        value: -497
+        inSlope: -994
+        outSlope: -994
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -71,14 +71,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 353
-        inSlope: -706
-        outSlope: -706
+        value: 0
+        inSlope: -994
+        outSlope: -994
         tangentMode: 10
       - time: .5
-        value: 0
-        inSlope: -706
-        outSlope: -706
+        value: -497
+        inSlope: -994
+        outSlope: -994
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
