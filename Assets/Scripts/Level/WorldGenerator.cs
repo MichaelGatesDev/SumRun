@@ -489,14 +489,19 @@ public class WorldGenerator : MonoBehaviour
 		Vector3 position = new Vector3 (lastGenerated.transform.position.x, global_y + 4.5f, player.transform.position.z);
 
 
-		// can't spawn apples until obstacles can spawn??
-		//TODO: ok lol
-		if (lastGeneratedObstacle == null)
+
+		// can only spawn apple in mid pieces
+		if(lastGenerated.GetComponent<LevelPiece>().GetPieceType() != LevelPieceType.MID)
 			return;
 
-		// don't let apples spawn so close to obstacles
-		if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < appleObstaclePadding)
-			return;
+
+		// if last obstacle exists
+		if (lastGeneratedObstacle != null)
+		{
+			// don't let apples spawn so close to obstacles
+			if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < appleObstaclePadding)
+				return;
+		}
 
 		// chance of apple spawn type
 		int ran = random.Next (0, 100);

@@ -33,14 +33,25 @@ public class ScoreTracker : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		player = GameObject.Find ("Player").GetComponent<Player> ();
+		Invoke("GetPlayer", 0.5f);
 	}
     
 	// Update is called once per frame
 	void Update ()
 	{
+		if(player == null)
+			return;
 		textObj.GetComponent<Text> ().text = player.GetApples() + "";
 	}
-    
+
+
+	// ========================================================================================\\
+
+	private void GetPlayer()
+	{
+		player = GameObject.Find ("Player").GetComponent<Player>();
+	}
+
+
 	// ========================================================================================\\
 }

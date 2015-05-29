@@ -35,7 +35,7 @@ public class PauseManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		panelPause = GameObject.Find("PanelPause");
+		panelPause = GameObject.Find("PauseGroup");
 		ppAnimator = panelPause.GetComponent<Animator>();
 	}
 	
@@ -49,6 +49,7 @@ public class PauseManager : MonoBehaviour
 		Time.timeScale = 0.0f;
 
 		ppAnimator.SetBool("paused", true);
+		Debug.Log ("Pause");
 	}
 
 	public void Unpause ()
@@ -58,6 +59,7 @@ public class PauseManager : MonoBehaviour
 		Time.timeScale = normalTime;
 
 		ppAnimator.SetBool("paused", false);
+		Debug.Log ("Unpause");
 	}
 	
 	// ========================================================================================\\

@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
 		Text lblScore = GameObject.Find("LabelScoreAmount").GetComponent<Text>();
 		lblScore.text = (apples * 1000) + (distance * 100) + "";
 
-		GameObject.Find ("PanelEnd").GetComponent<Animator> ().SetBool ("gameover", true);
+		GameObject.Find ("EndGroup").GetComponent<Animator> ().SetBool ("gameover", true);
 	}
 
 	// ========================================================================================\\

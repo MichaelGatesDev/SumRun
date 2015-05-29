@@ -67,10 +67,32 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	public void Restart()
+	public void Restart ()
 	{
-		Application.LoadLevel("Level");
+		Application.LoadLevel ("Level");
 	}
+
+	public void AskQuit ()
+	{
+		GameObject.Find ("PauseGroup").GetComponent<Animator> ().SetBool ("paused", false);
+		GameObject.Find ("AskGroup").GetComponent<Animator> ().SetBool ("asking", true);
+	}
+
+	public void QuitFromAsk ()
+	{
+		GameObject.Find ("AskGroup").GetComponent<Animator> ().SetBool ("quitting", true);
+		
+		Application.LoadLevel ("MainMenu");
+	}
+
+	public void CancelAsk ()
+	{
+		GameObject.Find ("AskGroup").GetComponent<Animator> ().SetBool ("asking", false);
+		GetComponent<PauseManager> ().Unpause ();
+	}
+
+	// ========================================================================================\\
+
 
 	// ========================================================================================\\
 }
