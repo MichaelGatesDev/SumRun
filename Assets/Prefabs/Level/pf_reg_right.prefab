@@ -12,7 +12,6 @@ GameObject:
   - 61: {fileID: 6161422}
   - 58: {fileID: 5819218}
   - 58: {fileID: 5850080}
-  - 114: {fileID: 11471370}
   m_Layer: 12
   m_Name: pf_reg_right
   m_TagString: ground
@@ -71,17 +70,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 2.23000002}
   serializedVersion: 2
   m_Size: {x: 7.32000017, y: 1.94000006}
---- !u!114 &11471370
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21273808
 SpriteRenderer:
   m_ObjectHideFlags: 1

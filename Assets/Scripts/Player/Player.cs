@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 
 	public LayerMask whatIsGround;
 	public ParticleSystem deathParticle;
+	public bool invincible;
 	//
 	private Vector3 spawnPos;
 	//
@@ -37,6 +38,9 @@ public class Player : MonoBehaviour
 	private bool poisoned;
 	private Location location;
 	private int distance = 0;
+	//
+	private GameObject gameManager;
+	private WeatherManager weatherManager;
 
 	// ========================================================================================\\
 
@@ -45,6 +49,13 @@ public class Player : MonoBehaviour
 	{
 		distance = 0;
 		spawnPos = transform.position;
+
+		InvokeRepeating ("Snow", 1.0f, 1.0f);
+
+		gameManager = GameObject.Find ("GameManager");
+		if (gameManager) {
+			weatherManager = gameManager.GetComponent<WeatherManager> ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -55,12 +66,21 @@ public class Player : MonoBehaviour
 
 		// set new distance
 		distance = (int)Vector3.Distance (spawnPos, transform.position);
+
+
+		// debug godmode
+		if (Input.GetKeyUp (KeyCode.G))
+			invincible = !invincible;
 	}
 	
 	// ========================================================================================\\
 
 	public void Kill (PlayerDeathCause cause)
 	{
+		// if player can't die..
+		if (invincible)
+			return;
+
 		// set player to dead
 		alive = false;
 
@@ -103,14 +123,23 @@ public class Player : MonoBehaviour
 
 	private void DoGameover ()
 	{
-		Text lblDistance = GameObject.Find("LabelDistanceAmount").GetComponent<Text>();
+		Text lblDistance = GameObject.Find ("LabelDistanceAmount").GetComponent<Text> ();
 		lblDistance.text = distance + " meters";
-		Text lblApples = GameObject.Find("LabelApplesAmount").GetComponent<Text>();
+		Text lblApples = GameObject.Find ("LabelApplesAmount").GetComponent<Text> ();
 		lblApples.text = apples + "";
-		Text lblScore = GameObject.Find("LabelScoreAmount").GetComponent<Text>();
+		Text lblScore = GameObject.Find ("LabelScoreAmount").GetComponent<Text> ();
 		lblScore.text = (apples * 1000) + (distance * 100) + "";
 
 		GameObject.Find ("EndGroup").GetComponent<Animator> ().SetBool ("gameover", true);
+	}
+
+	private void Snow ()
+	{
+		if (location.GetBiome () == Biome.WINTER) {
+			weatherManager.LetItSnow ();
+		} else {
+			weatherManager.StopTheSnow ();
+		}
 	}
 
 	// ========================================================================================\\

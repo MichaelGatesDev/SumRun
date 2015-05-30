@@ -12,7 +12,6 @@ GameObject:
   - 61: {fileID: 6134742}
   - 58: {fileID: 5887282}
   - 58: {fileID: 5838724}
-  - 114: {fileID: 11419544}
   m_Layer: 12
   m_Name: pf_snow_mid
   m_TagString: ground
@@ -71,17 +70,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 2.23000002}
   serializedVersion: 2
   m_Size: {x: 8.55000019, y: 1.94000006}
---- !u!114 &11419544
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 135024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21289034
 SpriteRenderer:
   m_ObjectHideFlags: 1

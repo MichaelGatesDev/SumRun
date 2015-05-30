@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 448734}
   - 212: {fileID: 21233604}
   - 61: {fileID: 6107876}
-  - 114: {fileID: 11490306}
   m_Layer: 12
   m_Name: pf_reg_bridge
   m_TagString: ground
@@ -43,17 +42,6 @@ BoxCollider2D:
   m_Offset: {x: -.239999995, y: -1.17999995}
   serializedVersion: 2
   m_Size: {x: 8.30000019, y: 1.13999999}
---- !u!114 &11490306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 167744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1f574715e175e4788a288698afc854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21233604
 SpriteRenderer:
   m_ObjectHideFlags: 1

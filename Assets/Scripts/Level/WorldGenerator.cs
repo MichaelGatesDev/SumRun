@@ -249,8 +249,8 @@ public class WorldGenerator : MonoBehaviour
 		if (lastBiome == Biome.SPRING && springCount >= max_spring) {
 			int biomeChangeChance = random.Next (0, 100);
 
-			// 25% chance to change biome
-			if (biomeChangeChance >= 75) {
+			// 15% chance to change biome
+			if (biomeChangeChance >= 85) {
 				forceBiome = Biome.WINTER;
 				springCount = 0;
 				winterCount = 0;
@@ -260,8 +260,8 @@ public class WorldGenerator : MonoBehaviour
 		else if (lastBiome == Biome.WINTER && winterCount >= max_winter) {
 			int biomeChangeChance = random.Next (0, 100);
 			
-			// 25% chance to change biome
-			if (biomeChangeChance >= 75) {
+			// 15% chance to change biome
+			if (biomeChangeChance >= 85) {
 				forceBiome = Biome.SPRING;
 				springCount = 0;
 				winterCount = 0;
@@ -429,6 +429,10 @@ public class WorldGenerator : MonoBehaviour
 
 		Vector3 newPos = new Vector3 (x + x_spread, y, z_spread);
 
+		// prevent platforms from overspawning
+		if (Vector3.Distance (player.transform.position, newPos) > 75)
+			return;
+
 		// add in the new game object
 		GameObject go = (GameObject)GameObject.Instantiate (toAdd, oldPos, Quaternion.identity);
 		go.transform.position = newPos;
@@ -458,8 +462,7 @@ public class WorldGenerator : MonoBehaviour
 
 
 			// if not the first obstacle being spawned
-			if(lastGeneratedObstacle != null)
-			{
+			if (lastGeneratedObstacle != null) {
 				// if obstacle spawning too close to last one, it's unfair
 				if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < obstaclePadding)
 					return;
@@ -491,13 +494,12 @@ public class WorldGenerator : MonoBehaviour
 
 
 		// can only spawn apple in mid pieces
-		if(lastGenerated.GetComponent<LevelPiece>().GetPieceType() != LevelPieceType.MID)
+		if (lastGenerated.GetComponent<LevelPiece> ().GetPieceType () != LevelPieceType.MID)
 			return;
 
 
 		// if last obstacle exists
-		if (lastGeneratedObstacle != null)
-		{
+		if (lastGeneratedObstacle != null) {
 			// don't let apples spawn so close to obstacles
 			if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < appleObstaclePadding)
 				return;
