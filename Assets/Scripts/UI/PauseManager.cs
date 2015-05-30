@@ -46,26 +46,22 @@ public class PauseManager : MonoBehaviour
 		// if already paused, ignore
 		if(paused)
 			return;
+
 		paused = true;
 		
 		normalTime = Time.timeScale;
 		Time.timeScale = 0.0f;
 
 		ppAnimator.SetBool("paused", true);
-		Debug.Log ("Pause");
 	}
 
 	public void Unpause ()
 	{
-		// if already unpaused, ignore
-		if(!paused)
-			return;
 		paused = false;
 
 		Time.timeScale = normalTime;
 
 		ppAnimator.SetBool("paused", false);
-		Debug.Log ("Unpause");
 	}
 	
 	// ========================================================================================\\
