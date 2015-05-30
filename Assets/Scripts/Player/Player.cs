@@ -71,6 +71,8 @@ public class Player : MonoBehaviour
 		// debug godmode
 		if (Input.GetKeyUp (KeyCode.G))
 			invincible = !invincible;
+		if (Input.GetKeyUp (KeyCode.K))
+			Kill (PlayerDeathCause.MONSTER);
 	}
 	
 	// ========================================================================================\\

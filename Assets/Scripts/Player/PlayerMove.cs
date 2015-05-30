@@ -103,6 +103,9 @@ public class PlayerMove : MonoBehaviour
 		if (player == null)
 			return;
 
+		if (anim == null)
+			return;
+
 		anim.SetBool ("dead", !player.IsAlive ());
 
 		if (!player.IsAlive ())
