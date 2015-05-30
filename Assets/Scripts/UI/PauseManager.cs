@@ -43,6 +43,9 @@ public class PauseManager : MonoBehaviour
 
 	public void Pause ()
 	{
+		// if already paused, ignore
+		if(paused)
+			return;
 		paused = true;
 		
 		normalTime = Time.timeScale;
@@ -54,6 +57,9 @@ public class PauseManager : MonoBehaviour
 
 	public void Unpause ()
 	{
+		// if already unpaused, ignore
+		if(!paused)
+			return;
 		paused = false;
 
 		Time.timeScale = normalTime;
