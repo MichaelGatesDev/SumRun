@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 		distance = 0;
 		spawnPos = transform.position;
 
-		InvokeRepeating ("Snow", 1.0f, 1.0f);
+		InvokeRepeating ("Snow", 1.0f, 0.1f);
 
 		gameManager = GameObject.Find ("GameManager");
 		if (gameManager) {
@@ -118,7 +118,14 @@ public class Player : MonoBehaviour
 			if (hit.collider.tag == "Utils" || !hit.collider || !hit.collider.transform || !hit.collider.transform.parent || !hit.collider.transform.parent.GetComponent<LevelPiece> ())
 				return;
 
-			Biome biome = hit.collider.transform.parent.GetComponent<LevelPiece> ().GetBiome ();
+			LevelPiece lp = hit.collider.transform.parent.GetComponent<LevelPiece> ();
+			Biome biome = lp.GetBiome ();
+
+			if(lp.GetPieceType() == LevelPieceType.EMPTY)
+			{
+				biome = Biome.EMPTY;
+			}
+
 			location = new Location (gameObject.transform, biome);
 		}
 	}
@@ -137,9 +144,11 @@ public class Player : MonoBehaviour
 
 	private void Snow ()
 	{
+		Debug.Log (location.GetBiome());
+
 		if (location.GetBiome () == Biome.WINTER) {
 			weatherManager.LetItSnow ();
-		} else {
+		} else if (location.GetBiome () == Biome.SPRING) {
 			weatherManager.StopTheSnow ();
 		}
 	}

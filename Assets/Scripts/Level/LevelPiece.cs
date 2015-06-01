@@ -58,6 +58,13 @@ public class LevelPiece : MonoBehaviour
 	
 	// ========================================================================================\\
 
+	public void SetBiome (Biome b)
+	{
+		this.biome = b;
+	}
+
+	// ========================================================================================\\
+
 	public GameObject GetPrefab ()
 	{
 		return prefab;

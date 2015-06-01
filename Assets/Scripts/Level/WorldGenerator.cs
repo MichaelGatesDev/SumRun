@@ -279,7 +279,7 @@ public class WorldGenerator : MonoBehaviour
 			// has to be mid 
 
 			// if has to be winter
-			if (forceBiome == Biome.WINTER && lastBiome == Biome.WINTER) {
+			if (forceBiome == Biome.WINTER || lastBiome == Biome.WINTER) {
 				int ranPiece = random.Next (0, winter_midPieces.Count);
 				selected = winter_midPieces [ranPiece];
 			}
@@ -421,6 +421,12 @@ public class WorldGenerator : MonoBehaviour
 		else if (lp.GetBiome () == Biome.WINTER) {
 			// increment winter piece count
 			winterCount++;
+
+			if(lp.GetPieceType() == LevelPieceType.EMPTY)
+			{
+				lp.SetBiome(Biome.WINTER);
+			}
+
 		}
 
 		// z_spread is a random value. 
@@ -452,8 +458,16 @@ public class WorldGenerator : MonoBehaviour
 			return;
 		}
 
+
+		float obstacleOffsetX = 0.0f;
+
+		if (type == LevelPieceType.BEGIN) {
+			obstacleOffsetX = 5.0f;
+		}
+
+
 		if (random.Next (0, 100) <= obstacleSpawnRate) {
-			Vector3 position = new Vector3 (lastGenerated.transform.position.x, global_y + 3.8f, lastGenerated.transform.position.z);
+			Vector3 position = new Vector3 (lastGenerated.transform.position.x + (obstacleOffsetX), global_y + 3.8f, lastGenerated.transform.position.z);
 			GameObject obstacle = obstacles [random.Next (0, obstacles.Length - 1)];
 
 			// if obstacle is somehow null, ignore

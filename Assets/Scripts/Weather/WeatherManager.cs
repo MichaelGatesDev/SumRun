@@ -33,28 +33,35 @@ public class WeatherManager : MonoBehaviour
 	
 
 	// ========================================================================================\\
+	
+	void Update ()
+	{
+		if (snowing)
+			FollowTarget ();
+	}
+	
+	// ========================================================================================\\
 
 	public void LetItSnow ()
 	{
 		if (snowing)
 			return;
+
 		snowing = true;
 
 		target = GameObject.Find ("Player");
 
 		Object o = Instantiate (snow, target.transform.position, Quaternion.identity);
 		o.name = "Snow";
-		created = GameObject.Find("Snow");
-
-		InvokeRepeating ("FollowTarget", 0.1f, 0.1f);
+		created = GameObject.Find ("Snow");
 	}
 
 	public void StopTheSnow ()
 	{
 		if (!snowing)
 			return;
+
 		snowing = false;
-		CancelInvoke("FollowTarget");
 		Destroy (created);
 	}
 	
@@ -62,12 +69,19 @@ public class WeatherManager : MonoBehaviour
 
 	private void FollowTarget ()
 	{
+		if (!created)
+			return;
+
 		Vector3 targetPos = new Vector3 ();
 		targetPos.x = target.transform.position.x + 8;
-		targetPos.y = target.transform.position.y + 5;
+
+		if (created.transform.position.y < target.transform.position.y + 5) {
+			targetPos.y = target.transform.position.y + 5;
+		}
+
 		targetPos.z = target.transform.position.z;
 
-		created.transform.position =  targetPos;
+		created.transform.position = targetPos;
 	}
 
 

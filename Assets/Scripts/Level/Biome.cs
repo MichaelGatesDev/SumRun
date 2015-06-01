@@ -30,4 +30,5 @@ public enum Biome
 {
     SPRING,
     WINTER,
+	EMPTY,
 }
