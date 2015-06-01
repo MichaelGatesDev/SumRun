@@ -41,20 +41,23 @@ public class PlayerMove : MonoBehaviour
 	private GameObject slideCollider;
 	private GameObject jumpCollider;
 	private GameObject fallCollider;
+	private bool mobile;
 	
 	// ========================================================================================\\
 
 	// Use this for initialization
 	void Start ()
 	{
-		anim = GetComponentInChildren<Animator> ();
-		rb = GetComponent<Rigidbody2D> ();
-		player = GameObject.Find ("Player").GetComponent<Player> ();
+		anim = GetComponentInChildren<Animator> ();	// Deer (Player) animator
+		rb = GetComponent<Rigidbody2D> (); // rigidbody physics thing
+		player = GameObject.Find ("Player").GetComponent<Player> (); // the palyer
 		
-		walkCollider = GameObject.Find ("WalkCollider");
-		jumpCollider = GameObject.Find ("JumpCollider");
-		fallCollider = GameObject.Find ("FallCollider");
-		slideCollider = GameObject.Find ("SlideCollider");
+		walkCollider = GameObject.Find ("WalkCollider"); // walk collider
+		jumpCollider = GameObject.Find ("JumpCollider"); // jump collider
+		fallCollider = GameObject.Find ("FallCollider"); // falling down collider
+		slideCollider = GameObject.Find ("SlideCollider"); // sliding collider
+
+		mobile = Application.isMobilePlatform; // if running on mobile
 	}
 	
 	// Update is called once per frame
@@ -62,13 +65,16 @@ public class PlayerMove : MonoBehaviour
 	{
 		//TODO: temporary controls for debug only, not mobile
 
-		// if press space, jump
-		if (Input.GetKeyUp (KeyCode.Space)) {
-			Jump ();
-		}
+
+		if (!mobile) {
+			// if press space, jump
+			if (Input.GetKeyUp (KeyCode.Space)) {
+				Jump ();
+			}
 		// if press shift 
 		else if (Input.GetKeyUp (KeyCode.LeftShift)) {
-			Slide ();
+				Slide ();
+			}
 		}
 
 		Run ();
@@ -123,7 +129,7 @@ public class PlayerMove : MonoBehaviour
 	
 	// ========================================================================================\\
 
-	private void Jump ()
+	public void Jump ()
 	{
 		if (player == null || !player.IsAlive ())
 			return;
@@ -138,7 +144,7 @@ public class PlayerMove : MonoBehaviour
 		}
 	}
 
-	private void Slide ()
+	public void Slide ()
 	{
 		if (player == null || !player.IsAlive ())
 			return;

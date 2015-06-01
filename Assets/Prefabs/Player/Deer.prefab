@@ -11,6 +11,7 @@ GameObject:
   - 50: {fileID: 5006044}
   - 114: {fileID: 11430064}
   - 114: {fileID: 11458774}
+  - 114: {fileID: 11414696}
   m_Layer: 8
   m_Name: Deer
   m_TagString: Player
@@ -382,6 +383,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11414696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7bc74bf600e2c4fb6385ab9fab19ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11430064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -412,11 +424,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9d96e0e0709b74b8783fd3424b0d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathSprite: {fileID: 21300000, guid: 14d659c074edf6541ad3d5e4195a11ab, type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
   deathParticle: {fileID: 19820816, guid: fe9610e8a3b4b2f42affb8fc035aa86b, type: 2}
+  invincible: 0
 --- !u!212 &21250348
 SpriteRenderer:
   m_ObjectHideFlags: 1
