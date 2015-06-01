@@ -5,8 +5,8 @@ public class MainMenuManager : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	public GameObject mainGroup;
-	public GameObject optionsGroup;
+	private GameObject mainGroup;
+	private GameObject optionsGroup;
 
 	// ========================================================================================\\
 
