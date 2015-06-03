@@ -266,6 +266,11 @@ public class WorldGenerator : MonoBehaviour
 		// if last generated was a beginning piece
 		if (lastGeneratedType == LevelPieceType.BEGIN) {
 
+			if(lastBiome == Biome.SPRING)
+			{
+				forceBiome = Biome.SPRING;
+			}
+
 			// has to be mid 
 
 			// if has to be winter
@@ -436,17 +441,17 @@ public class WorldGenerator : MonoBehaviour
 		lastGenerated.AddComponent<Metadata> ();
 		
 		// attempt to spawn an obstacle there
-		SpawnObstacleAt (lastGenerated);
+		Invoke("SpawnObstacle", 0.1f);
 		// attempt to spawn an apple there
-		SpawnAppleAt (lastGenerated);
+		Invoke("SpawnApple", 0.5f);
 	}
 
     
 	// ========================================================================================\\
 
-	private void SpawnAppleAt (GameObject go)
+	private void SpawnApple()
 	{
-		Vector3 position = go.transform.position;
+		Vector3 position = lastGenerated.transform.position;
 		Vector3 betterPos = new Vector3 (position.x, position.y + 4.5f, position.z);
 		
 		// chance of apple spawn type
@@ -509,9 +514,9 @@ public class WorldGenerator : MonoBehaviour
 
 	}
 
-	private void SpawnObstacleAt (GameObject go)
+	private void SpawnObstacle()
 	{
-		LevelPieceType type = go.GetComponent<LevelPiece> ().GetPieceType ();
+		LevelPieceType type = lastGenerated.GetComponent<LevelPiece> ().GetPieceType ();
 		
 		// can only spawn if the last generated was a mid type
 		if (type == LevelPieceType.EMPTY || type == LevelPieceType.SMALL || type == LevelPieceType.EXTRA_SMALL) {
@@ -527,14 +532,14 @@ public class WorldGenerator : MonoBehaviour
 		
 		
 		if (random.Next (0, 100) <= obstacleSpawnRate) {
-			Vector3 position = new Vector3 (go.transform.position.x + (obstacleOffsetX), global_y + 3.8f, go.transform.position.z);
+			Vector3 position = new Vector3 (lastGenerated.transform.position.x + (obstacleOffsetX), global_y + 3.8f, lastGenerated.transform.position.z);
 			GameObject obstacle = obstacles [random.Next (0, obstacles.Length - 1)];
 			
 			// if obstacle is somehow null, ignore
 			if (obstacle == null)
 				return;
 
-			Metadata md = go.GetComponent<Metadata> ();
+			Metadata md = lastGenerated.GetComponent<Metadata> ();
 
 			if (md.GetMetadata () != null) {
 				if (md.GetMetadata ().Equals ("obstacle") || md.GetMetadata ().Equals ("apple")) {
