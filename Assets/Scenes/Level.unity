@@ -2988,7 +2988,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 407020, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: lastGenerated
@@ -2998,22 +2998,6 @@ Prefab:
       propertyPath: spawnPosition
       value: 
       objectReference: {fileID: 636504934}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: obstaclePadding
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: appleObstaclePadding
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: max_spring
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
-      propertyPath: x_spread
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
   m_IsPrefabParent: 0

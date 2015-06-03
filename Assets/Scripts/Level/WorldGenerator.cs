@@ -241,7 +241,7 @@ public class WorldGenerator : MonoBehaviour
 		if (lastBiome == Biome.SPRING && springCount >= max_spring) {
 
 			// 15% chance to change biome
-			if (biomeChangeChance >= 8 && lastBiome == Biome.EMPTY) {
+			if (biomeChangeChance >= 85) {
 				forceBiome = Biome.WINTER;
 				springCount = 0;
 				winterCount = 0;
@@ -251,7 +251,7 @@ public class WorldGenerator : MonoBehaviour
 		else if (lastBiome == Biome.WINTER && winterCount >= max_winter) {
 
 			// 15% chance to change biome
-			if (biomeChangeChance >= 85 && lastBiome == Biome.EMPTY) {
+			if (biomeChangeChance >= 85) {
 				forceBiome = Biome.SPRING;
 				springCount = 0;
 				winterCount = 0;
@@ -351,7 +351,6 @@ public class WorldGenerator : MonoBehaviour
 		Biome selectedBiome = selected.GetComponent<LevelPiece> ().biome;
 		LevelPieceType selectedType = selected.GetComponent<LevelPiece> ().pieceType;
 
-		Debug.Log (lastBiome + " | " + biomeChangeChance + "% | " + lastGeneratedType + " | " + selectedBiome + " | " + selectedType);
 		return selected;
 	}
 

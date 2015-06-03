@@ -145,9 +145,9 @@ MonoBehaviour:
   poisonAppleChance: 0
   rottenAppleChance: 5
   goldenAppleChance: 25
-  appleChance: 100
-  appleObstaclePadding: 3
-  obstaclePadding: 8
+  appleChance: 50
+  appleObstaclePadding: 15
+  obstaclePadding: 25
   lastGenerated: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
