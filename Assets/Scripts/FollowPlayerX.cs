@@ -41,6 +41,9 @@ public class FollowPlayerX : MonoBehaviour
 			player = GameObject.Find ("Player");
 		}
 
+		if(!player.GetComponent<Player>().IsAlive())
+			return;
+
 		float x = player.transform.position.x;
 		float y = transform.position.y;
 		float z = transform.position.z;
