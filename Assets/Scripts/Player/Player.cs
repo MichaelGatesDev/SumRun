@@ -70,7 +70,10 @@ public class Player : MonoBehaviour
 
 		// debug godmode
 		if (Input.GetKeyUp (KeyCode.G))
+		{
 			invincible = !invincible;
+			GetComponent<Rigidbody2D>().isKinematic = true;
+		}
 		if (Input.GetKeyUp (KeyCode.K))
 			Kill (PlayerDeathCause.MONSTER);
 	}
@@ -144,8 +147,6 @@ public class Player : MonoBehaviour
 
 	private void Snow ()
 	{
-		Debug.Log (location.GetBiome());
-
 		if (location.GetBiome () == Biome.WINTER) {
 			weatherManager.LetItSnow ();
 		} else if (location.GetBiome () == Biome.SPRING) {

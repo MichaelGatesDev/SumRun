@@ -83,12 +83,6 @@ public class WorldGenerator : MonoBehaviour
 
 		// start adding pieces
 		StartCoroutine ("AddPieces");
-
-		// start adding obstacles
-		InvokeRepeating ("SpawnObstacle", 1.0f, 1.0f);
-
-		// spawn apples
-		InvokeRepeating ("SpawnApple", 1.0f, 1.0f);
 	}
 
 	void Update ()
@@ -110,10 +104,6 @@ public class WorldGenerator : MonoBehaviour
 		if (!player.IsAlive ()) {
 			// stop generating pieces
 			StopCoroutine ("AddPieces");
-			// stop spawning apples
-			CancelInvoke ("SpawnApple");
-			// stop spawning obstacles
-			CancelInvoke ("SpawnObstacle");
 		}
 
 	}
@@ -245,12 +235,13 @@ public class WorldGenerator : MonoBehaviour
 		LevelPieceType lastGeneratedType = lastGenerated.GetComponent<LevelPiece> ().pieceType; // type of last generated
 		Biome lastBiome = lastGenerated.GetComponent<LevelPiece> ().biome; // biome of last generated
 
-		// if it generated quite a few spring pieces
+		int biomeChangeChance = random.Next (0, 100);	// the chance to change the biome
+
+		// if it generated quite a few spring pieces, AND the last piece was empty (to avoid biome interruption)
 		if (lastBiome == Biome.SPRING && springCount >= max_spring) {
-			int biomeChangeChance = random.Next (0, 100);
 
 			// 15% chance to change biome
-			if (biomeChangeChance >= 85) {
+			if (biomeChangeChance >= 8 && lastBiome == Biome.EMPTY) {
 				forceBiome = Biome.WINTER;
 				springCount = 0;
 				winterCount = 0;
@@ -258,10 +249,9 @@ public class WorldGenerator : MonoBehaviour
 		}
 		// else if it generated quite a few winter pieces
 		else if (lastBiome == Biome.WINTER && winterCount >= max_winter) {
-			int biomeChangeChance = random.Next (0, 100);
-			
+
 			// 15% chance to change biome
-			if (biomeChangeChance >= 85) {
+			if (biomeChangeChance >= 85 && lastBiome == Biome.EMPTY) {
 				forceBiome = Biome.SPRING;
 				springCount = 0;
 				winterCount = 0;
@@ -357,8 +347,11 @@ public class WorldGenerator : MonoBehaviour
 			// has to be empty
 			selected = emptyPiece;
 		}
+		
+		Biome selectedBiome = selected.GetComponent<LevelPiece> ().biome;
+		LevelPieceType selectedType = selected.GetComponent<LevelPiece> ().pieceType;
 
-
+		Debug.Log (lastBiome + " | " + biomeChangeChance + "% | " + lastGeneratedType + " | " + selectedBiome + " | " + selectedType);
 		return selected;
 	}
 
@@ -395,7 +388,6 @@ public class WorldGenerator : MonoBehaviour
 			return;
 		}
 
-
 		Vector3 oldPos = lastGenerated.transform.position;
 		float x = oldPos.x;
 		float y = global_y;
@@ -422,11 +414,9 @@ public class WorldGenerator : MonoBehaviour
 			// increment winter piece count
 			winterCount++;
 
-			if(lp.GetPieceType() == LevelPieceType.EMPTY)
-			{
-				lp.SetBiome(Biome.WINTER);
+			if (lp.GetPieceType () == LevelPieceType.EMPTY) {
+				lp.SetBiome (Biome.WINTER);
 			}
-
 		}
 
 		// z_spread is a random value. 
@@ -444,106 +434,126 @@ public class WorldGenerator : MonoBehaviour
 		go.transform.position = newPos;
 
 		lastGenerated = go;
+		lastGenerated.AddComponent<Metadata> ();
+		
+		// attempt to spawn an obstacle there
+		SpawnObstacleAt (lastGenerated);
+		// attempt to spawn an apple there
+		SpawnAppleAt (lastGenerated);
 	}
 
     
 	// ========================================================================================\\
 
-	private void SpawnObstacle ()
+	private void SpawnAppleAt (GameObject go)
 	{
-		LevelPieceType type = lastGenerated.GetComponent<LevelPiece> ().GetPieceType ();
+		Vector3 position = go.transform.position;
+		Vector3 betterPos = new Vector3 (position.x, position.y + 4.5f, position.z);
+		
+		// chance of apple spawn type
+		int ran = random.Next (0, 100);
+		
+		// can not be zero
+		if (ran == 0)
+			return;
 
+
+		AppleType toSpawn = AppleType.NONE;
+
+		// chance to spawn poison apple
+		if (ran <= poisonAppleChance && lastAppleType != AppleType.POISON) {
+			Instantiate (poisonApple, betterPos, Quaternion.identity);
+			toSpawn = AppleType.POISON;
+		}
+		// chance to spawn rotten apple
+		else if (ran <= rottenAppleChance && lastAppleType != AppleType.ROTTEN) {
+			Instantiate (rottenApple, betterPos, Quaternion.identity);
+			lastAppleType = AppleType.ROTTEN;
+		}
+		// chance to spawn golden apple
+		else if (ran <= goldenAppleChance && lastAppleType != AppleType.GOLD) {
+			Instantiate (goldenApple, betterPos, Quaternion.identity);
+			lastAppleType = AppleType.GOLD;
+			// chance to spawn normal apple
+		} else if (ran <= appleChance) {
+			Instantiate (apple, betterPos, Quaternion.identity);
+			lastAppleType = AppleType.NORMAL;
+		}
+
+		if (toSpawn == AppleType.NONE)
+			return;
+
+
+		Metadata md = lastGenerated.GetComponent<Metadata> ();
+
+		if (md.GetMetadata () != null) {
+			if (md.GetMetadata ().Equals ("obstacle") || md.GetMetadata ().Equals ("apple")) {
+				return;
+			}
+		}
+		
+		if (toSpawn == AppleType.POISON) {
+			Instantiate (poisonApple, betterPos, Quaternion.identity);
+		}
+		if (toSpawn == AppleType.ROTTEN) {
+			Instantiate (rottenApple, betterPos, Quaternion.identity);
+		}
+		if (toSpawn == AppleType.GOLD) {
+			Instantiate (goldenApple, betterPos, Quaternion.identity);
+		}
+		if (toSpawn == AppleType.NORMAL) {
+			Instantiate (apple, betterPos, Quaternion.identity);
+		}
+
+		md.SetMetadata ("apple");
+		lastAppleType = toSpawn;
+
+	}
+
+	private void SpawnObstacleAt (GameObject go)
+	{
+		LevelPieceType type = go.GetComponent<LevelPiece> ().GetPieceType ();
+		
 		// can only spawn if the last generated was a mid type
 		if (type == LevelPieceType.EMPTY || type == LevelPieceType.SMALL || type == LevelPieceType.EXTRA_SMALL) {
 			return;
 		}
-
-
+		
+		
 		float obstacleOffsetX = 0.0f;
-
+		
 		if (type == LevelPieceType.BEGIN) {
 			obstacleOffsetX = 5.0f;
 		}
-
-
+		
+		
 		if (random.Next (0, 100) <= obstacleSpawnRate) {
-			Vector3 position = new Vector3 (lastGenerated.transform.position.x + (obstacleOffsetX), global_y + 3.8f, lastGenerated.transform.position.z);
+			Vector3 position = new Vector3 (go.transform.position.x + (obstacleOffsetX), global_y + 3.8f, go.transform.position.z);
 			GameObject obstacle = obstacles [random.Next (0, obstacles.Length - 1)];
-
+			
 			// if obstacle is somehow null, ignore
 			if (obstacle == null)
 				return;
 
+			Metadata md = go.GetComponent<Metadata> ();
 
+			if (md.GetMetadata () != null) {
+				if (md.GetMetadata ().Equals ("obstacle") || md.GetMetadata ().Equals ("apple")) {
+					return;
+				}
+			}
+
+			
 			// if not the first obstacle being spawned
 			if (lastGeneratedObstacle != null) {
 				// if obstacle spawning too close to last one, it's unfair
 				if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < obstaclePadding)
 					return;
 			}
-
+			
 			// spawn in object
 			lastGeneratedObstacle = (GameObject)Instantiate (obstacle, position, Quaternion.identity);
-		}
-	}
-
-	private void SpawnApple ()
-	{
-		// if someone (me?) forgot to set apple prefabs
-		if (!apple || !goldenApple || !poisonApple || !rottenApple)
-			return;
-
-		// if should spawn the apple
-		bool shouldSpawn = random.Next (0, 100) <= appleSpawnRate;
-		
-		GameObject player = GameObject.Find ("Player");
-		
-		// if can't spawn apple, ignore
-		if (!shouldSpawn)
-			return;
-			
-		// position to spawn apple
-		Vector3 position = new Vector3 (lastGenerated.transform.position.x, global_y + 4.5f, player.transform.position.z);
-
-
-
-		// can only spawn apple in mid pieces
-		if (lastGenerated.GetComponent<LevelPiece> ().GetPieceType () != LevelPieceType.MID)
-			return;
-
-
-		// if last obstacle exists
-		if (lastGeneratedObstacle != null) {
-			// don't let apples spawn so close to obstacles
-			if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < appleObstaclePadding)
-				return;
-		}
-
-		// chance of apple spawn type
-		int ran = random.Next (0, 100);
-
-		// can not be zero
-		if (ran == 0)
-			return;
-
-		// chance to spawn poison apple
-		if (ran <= poisonAppleChance && lastAppleType != AppleType.POISON) {
-			Instantiate (poisonApple, position, Quaternion.identity);
-			lastAppleType = AppleType.POISON;
-		}
-		// chance to spawn rotten apple
-		else if (ran <= rottenAppleChance && lastAppleType != AppleType.ROTTEN) {
-			Instantiate (rottenApple, position, Quaternion.identity);
-			lastAppleType = AppleType.ROTTEN;
-		}
-		// chance to spawn golden apple
-		else if (ran <= goldenAppleChance && lastAppleType != AppleType.GOLD) {
-			Instantiate (goldenApple, position, Quaternion.identity);
-			lastAppleType = AppleType.GOLD;
-			// chance to spawn normal apple
-		} else if (ran <= appleChance) {
-			Instantiate (apple, position, Quaternion.identity);
-			lastAppleType = AppleType.NORMAL;
+			md.SetMetadata ("obstacle");
 		}
 	}
 

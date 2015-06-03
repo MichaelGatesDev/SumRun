@@ -19,6 +19,8 @@
 //------------------------------------------------------------------------------
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;   
 
 public class ItemApple : MonoBehaviour
 {
@@ -27,7 +29,7 @@ public class ItemApple : MonoBehaviour
 	public AppleType type;				// the type of apple
 	public ParticleSystem effect;		// the effect to play (if one exists)
 	private Player player;				// the player
-	private Object o;					// the effect spawned-in
+	private GameObject go;				// the effect spawned-in
 	
 	// ========================================================================================\\
 
@@ -38,6 +40,16 @@ public class ItemApple : MonoBehaviour
 
 		// start particles
 		StartParticles ();
+	}
+
+	void Update ()
+	{
+		if (transform.position.x < player.transform.position.x - 15.0f) {
+			if (go != null) {
+				Destroy (go);
+			}
+			Destroy (gameObject);
+		}
 	}
 
 	// when a player touches it
@@ -62,14 +74,13 @@ public class ItemApple : MonoBehaviour
 		}
 		
 		// destroy particle effect
-		Destroy (o);
+		Destroy (go);
 		// destroy apple object
 		Destroy (gameObject);
 	}
 
 	// ========================================================================================\\
-
-
+	
 	private void StartParticles ()
 	{
 		// if apple does not have an effect, ignore
@@ -77,9 +88,20 @@ public class ItemApple : MonoBehaviour
 			return;
 
 		// create effect
-		o = Instantiate (effect, transform.position, Quaternion.identity);
+		Object o = Instantiate (effect, transform.position, Quaternion.identity);
+		o.name = "temp";
+		go = GameObject.Find ("temp");
+		go.name = RandomStr();	
+	}
+	
+	// ========================================================================================\\
+
+	public static string RandomStr()
+		
+	{
+		string rStr = Path.GetRandomFileName();
+		rStr = rStr.Replace(".", ""); // For Removing the .
+		return rStr;
 	}
 
-    
-	// ========================================================================================\\
 }
