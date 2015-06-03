@@ -42,6 +42,7 @@ public class PlayerMove : MonoBehaviour
 	private GameObject jumpCollider;
 	private GameObject fallCollider;
 	private bool mobile;
+	private float globalY;
 	
 	// ========================================================================================\\
 
@@ -58,6 +59,8 @@ public class PlayerMove : MonoBehaviour
 		slideCollider = GameObject.Find ("SlideCollider"); // sliding collider
 
 		mobile = Application.isMobilePlatform; // if running on mobile
+
+		globalY = GameObject.Find("GameManager").GetComponent<WorldGenerator>().global_y;
 	}
 	
 	// Update is called once per frame
@@ -101,7 +104,6 @@ public class PlayerMove : MonoBehaviour
 			DisableAllFallColliders ();
 			DisableAllJumpColliders ();
 		}
-
 	}
 
 	void FixedUpdate ()
@@ -138,6 +140,10 @@ public class PlayerMove : MonoBehaviour
 		if (grounded) {
 			// can not jump if sliding
 			if (!sliding) {
+
+				if(player.transform.position.y < globalY + 1.7f)
+					return;
+
 				rb.AddForce (Vector2.up * 400.0f);
 				InvokeRepeating ("GroundTouch", 0.1f, 0.1f);
 			}
