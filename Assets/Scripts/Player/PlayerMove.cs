@@ -90,19 +90,32 @@ public class PlayerMove : MonoBehaviour
 				DisableAllWalkColliders ();
 				EnableAllJumpColliders ();
 				DisableAllFallColliders ();
+				DisableAllSlideColliders();
 			}
 			// falling
 			else if (rb.velocity.y < 0) {
 				DisableAllWalkColliders ();
 				EnableAllFallColliders ();
 				DisableAllJumpColliders ();
+				DisableAllSlideColliders();
 			}
 		}
 		// grounded
 		else {
-			EnableAllWalkColliders ();
-			DisableAllFallColliders ();
-			DisableAllJumpColliders ();
+
+			if(sliding)
+			{
+				EnableAllSlideColliders();
+				DisableAllWalkColliders();
+				DisableAllJumpColliders();
+				DisableAllFallColliders();
+			}else
+			{
+				EnableAllWalkColliders ();
+				DisableAllFallColliders ();
+				DisableAllJumpColliders ();
+				DisableAllSlideColliders();
+			}
 		}
 	}
 
