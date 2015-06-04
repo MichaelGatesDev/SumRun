@@ -1391,48 +1391,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 15
---- !u!1001 &709040491
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 17.2999992
-      objectReference: {fileID: 0}
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -8.31000042
-      objectReference: {fileID: 0}
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -.970000029
-      objectReference: {fileID: 0}
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 417698, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 190a9cf02d059e3469c36885be4f6e4b, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &744684618
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,7 +3044,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11491524, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}
       propertyPath: snowballChance
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b7071301f5f2c143882bbe371dc9cc9, type: 2}

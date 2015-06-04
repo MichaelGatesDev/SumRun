@@ -73,8 +73,7 @@ public class WorldGenerator : MonoBehaviour
 	private GameObject lastGeneratedObstacle;	// the last generated obstacle
 	private AppleType lastAppleType;			// the last type of apple generated
 	//
-	private float snowballTimestamp;
-	private bool firstSnowball = true;
+	private float snowballTimestamp;			// time since last snowball
 
 	// ========================================================================================\\
 
@@ -540,30 +539,24 @@ public class WorldGenerator : MonoBehaviour
 
 	private void TryForSnowball ()
 	{
-		if(player == null || player.GetLocation() == null) 
+		if (player == null || player.GetLocation () == null) 
 			return;
 
 		if (player.GetLocation ().GetPieceType () == LevelPieceType.BEGIN) {
 			int chance = random.Next (0, 100);
 
 			if (chance <= snowballChance) {
-				 
 
-				if(!firstSnowball)
-				{
-					if ((Time.time < snowballTimestamp)) {
-						return;
-					}
+				if ((Time.time < snowballTimestamp)) {
+					return;
 				}
 
 				Vector3 pos = player.transform.position;
 				pos.y = snowballY;
-				pos.x += 15.0f;
+				pos.x += 20.0f;
 				Instantiate (snowballPrefab, pos, Quaternion.identity);
 
 				snowballTimestamp = Time.time + snowballCooldown;
-
-				firstSnowball = false;
 			}
 		}
 	}
