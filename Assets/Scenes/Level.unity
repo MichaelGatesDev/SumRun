@@ -2085,6 +2085,7 @@ GameObject:
   - 114: {fileID: 1181528219}
   - 114: {fileID: 1181528223}
   - 114: {fileID: 1181528222}
+  - 223: {fileID: 1181528224}
   m_Layer: 5
   m_Name: ScoreBar
   m_TagString: Untagged
@@ -2165,6 +2166,23 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: .5}
   m_EffectDistance: {x: 1, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!223 &1181528224
+Canvas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1181528218}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!1 &1236226369
 GameObject:
   m_ObjectHideFlags: 0
