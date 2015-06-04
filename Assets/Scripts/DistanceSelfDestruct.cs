@@ -1,31 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Snowball : MonoBehaviour
+public class DistanceSelfDestruct : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	private float speed = 5.0f;
+	public float maxDistance = 15.0f;
 
 	// ========================================================================================\\
-
+	
 	void Update()
 	{
-		transform.Translate(Vector3.left * Time.deltaTime * speed);
+		DestroyMyself();
 	}
 
 	// ========================================================================================\\
-
-	void OnCollisionEnter2D (Collision2D coll)
-	{
-		if (coll.gameObject.name == "Player") {
 	
-			Player player = GameObject.Find ("Player").GetComponent<Player> ();
-
-			if (!player.IsAlive ())
-				return;
-
-			player.Kill (PlayerDeathCause.SNOWBALL);
+	private void DestroyMyself ()
+	{
+		GameObject player = GameObject.Find ("Player");
+		
+		if (transform.position.x < player.transform.position.x - maxDistance) {
+			Destroy (gameObject);
 		}
 	}
 

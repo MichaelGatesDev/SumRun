@@ -23,12 +23,6 @@ using System.Collections;
 public class CrashObstacle : MonoBehaviour
 {
 	// ========================================================================================\\
-	
-	void Start ()
-	{
-		InvokeRepeating ("DestroyMyself", 0.5f, 0.5f);
-	}
-	// ========================================================================================\\
 
 	void OnCollisionEnter2D (Collision2D coll)
 	{
@@ -38,17 +32,6 @@ public class CrashObstacle : MonoBehaviour
 				return;
 
 			player.Kill (PlayerDeathCause.CRASH);
-		}
-	}
-	
-	// ========================================================================================\\
-	
-	private void DestroyMyself ()
-	{
-		GameObject player = GameObject.Find ("Player");
-		
-		if (transform.position.x < player.transform.position.x - 15.0f) {
-			Destroy (gameObject);
 		}
 	}
 	
