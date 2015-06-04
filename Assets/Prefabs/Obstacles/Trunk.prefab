@@ -12,6 +12,7 @@ GameObject:
   - 60: {fileID: 6081902}
   - 114: {fileID: 11473218}
   - 114: {fileID: 11481726}
+  - 114: {fileID: 11424750}
   m_Layer: 0
   m_Name: Trunk
   m_TagString: Obstacle
@@ -169,6 +170,18 @@ PolygonCollider2D:
       - {x: -.330000013, y: -2.05999994}
       - {x: -.289999992, y: -1.98000002}
       - {x: -.300000012, y: -1.75999999}
+--- !u!114 &11424750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba97ebd73947bf54696b325c16de55a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 15
 --- !u!114 &11473218
 MonoBehaviour:
   m_ObjectHideFlags: 1

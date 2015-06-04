@@ -44,7 +44,7 @@ public class LevelPiece : MonoBehaviour
 	{
 		InvokeRepeating ("DestroyMyself", 0.5f, 0.5f);
 	}
-	
+
 	// ========================================================================================\\
 
 	private void DestroyMyself ()

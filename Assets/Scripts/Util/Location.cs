@@ -29,6 +29,7 @@ public class Location
 	private float y;
 	private float z;
 	private Biome biome;
+	private LevelPieceType pieceType;
 	
 	// ========================================================================================\\
 
@@ -89,6 +90,10 @@ public class Location
 		this.biome = biome;
 	}
 
+	public void SetPieceType(LevelPieceType lpt)
+	{
+		this.pieceType = lpt;
+	}
 	
 	// ========================================================================================\\
 
@@ -111,6 +116,11 @@ public class Location
 	public Biome GetBiome ()
 	{
 		return biome;
+	}
+
+	public LevelPieceType GetPieceType()
+	{
+		return pieceType;
 	}
 
 

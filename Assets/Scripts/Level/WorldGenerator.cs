@@ -45,8 +45,11 @@ public class WorldGenerator : MonoBehaviour
 	public int rottenAppleChance;				// the precentage (%) chance to spawn a rotten apple
 	public int goldenAppleChance;				// the precentage (%) chance to spawn a golden apple
 	public int appleChance;						// the precentage (%) chance to spawn a normal apple
-	public int appleObstaclePadding;			// the padding between apples and obstacles
 	public int obstaclePadding;					// the padding between obstacles
+	public GameObject snowballPrefab;			// the actual snowball prefab
+	public float snowballY;						// the Y value that a snowball spawns at
+	public int snowballChance;					// the prcentage (%) chance to spawn a snowball
+	public float snowballCooldown = 3.0f;		// the cooldown after a snowball has been spawned before another can spawn
 	//
 	private Player player;						// the player!
 	private System.Random random;				// The GOOD random random random random thing
@@ -69,6 +72,9 @@ public class WorldGenerator : MonoBehaviour
 	public GameObject lastGenerated;			// the last generated piece
 	private GameObject lastGeneratedObstacle;	// the last generated obstacle
 	private AppleType lastAppleType;			// the last type of apple generated
+	//
+	private float snowballTimestamp;
+	private bool firstSnowball = true;
 
 	// ========================================================================================\\
 
@@ -106,6 +112,8 @@ public class WorldGenerator : MonoBehaviour
 			StopCoroutine ("AddPieces");
 		}
 
+		// try to spawn a snowball
+		TryForSnowball ();
 	}
 
 	// ========================================================================================\\
@@ -266,8 +274,7 @@ public class WorldGenerator : MonoBehaviour
 		// if last generated was a beginning piece
 		if (lastGeneratedType == LevelPieceType.BEGIN) {
 
-			if(lastBiome == Biome.SPRING)
-			{
+			if (lastBiome == Biome.SPRING) {
 				forceBiome = Biome.SPRING;
 			}
 
@@ -352,9 +359,6 @@ public class WorldGenerator : MonoBehaviour
 			// has to be empty
 			selected = emptyPiece;
 		}
-		
-		Biome selectedBiome = selected.GetComponent<LevelPiece> ().biome;
-		LevelPieceType selectedType = selected.GetComponent<LevelPiece> ().pieceType;
 
 		return selected;
 	}
@@ -438,18 +442,17 @@ public class WorldGenerator : MonoBehaviour
 		go.transform.position = newPos;
 
 		lastGenerated = go;
-		lastGenerated.AddComponent<Metadata> ();
-		
+
 		// attempt to spawn an obstacle there
-		Invoke("SpawnObstacle", 0.1f);
+		SpawnObstacle ();
 		// attempt to spawn an apple there
-		Invoke("SpawnApple", 0.5f);
+		Invoke ("SpawnApple", 0.3f);
 	}
 
     
 	// ========================================================================================\\
 
-	private void SpawnApple()
+	private void SpawnApple ()
 	{
 		Vector3 position = lastGenerated.transform.position;
 		Vector3 betterPos = new Vector3 (position.x, position.y + 4.5f, position.z);
@@ -466,55 +469,38 @@ public class WorldGenerator : MonoBehaviour
 
 		// chance to spawn poison apple
 		if (ran <= poisonAppleChance && lastAppleType != AppleType.POISON) {
-			Instantiate (poisonApple, betterPos, Quaternion.identity);
 			toSpawn = AppleType.POISON;
 		}
 		// chance to spawn rotten apple
 		else if (ran <= rottenAppleChance && lastAppleType != AppleType.ROTTEN) {
-			Instantiate (rottenApple, betterPos, Quaternion.identity);
-			lastAppleType = AppleType.ROTTEN;
+			toSpawn = AppleType.ROTTEN;
 		}
 		// chance to spawn golden apple
 		else if (ran <= goldenAppleChance && lastAppleType != AppleType.GOLD) {
-			Instantiate (goldenApple, betterPos, Quaternion.identity);
-			lastAppleType = AppleType.GOLD;
+			toSpawn = AppleType.GOLD;
 			// chance to spawn normal apple
 		} else if (ran <= appleChance) {
-			Instantiate (apple, betterPos, Quaternion.identity);
-			lastAppleType = AppleType.NORMAL;
+			toSpawn = AppleType.NORMAL;
 		}
 
 		if (toSpawn == AppleType.NONE)
 			return;
-
-
-		Metadata md = lastGenerated.GetComponent<Metadata> ();
-
-		if (md.GetMetadata () != null) {
-			if (md.GetMetadata ().Equals ("obstacle") || md.GetMetadata ().Equals ("apple")) {
-				return;
-			}
-		}
 		
 		if (toSpawn == AppleType.POISON) {
 			Instantiate (poisonApple, betterPos, Quaternion.identity);
-		}
-		if (toSpawn == AppleType.ROTTEN) {
+		} else if (toSpawn == AppleType.ROTTEN) {
 			Instantiate (rottenApple, betterPos, Quaternion.identity);
-		}
-		if (toSpawn == AppleType.GOLD) {
+		} else if (toSpawn == AppleType.GOLD) {
 			Instantiate (goldenApple, betterPos, Quaternion.identity);
-		}
-		if (toSpawn == AppleType.NORMAL) {
+		} else if (toSpawn == AppleType.NORMAL) {
 			Instantiate (apple, betterPos, Quaternion.identity);
 		}
 
-		md.SetMetadata ("apple");
+		// set last apple type
 		lastAppleType = toSpawn;
-
 	}
 
-	private void SpawnObstacle()
+	private void SpawnObstacle ()
 	{
 		LevelPieceType type = lastGenerated.GetComponent<LevelPiece> ().GetPieceType ();
 		
@@ -533,20 +519,12 @@ public class WorldGenerator : MonoBehaviour
 		
 		if (random.Next (0, 100) <= obstacleSpawnRate) {
 			Vector3 position = new Vector3 (lastGenerated.transform.position.x + (obstacleOffsetX), global_y + 3.8f, lastGenerated.transform.position.z);
-			GameObject obstacle = obstacles [random.Next (0, obstacles.Length - 1)];
-			
+			int selected = random.Next (0, obstacles.Length);
+			GameObject obstacle = obstacles [selected];
+
 			// if obstacle is somehow null, ignore
 			if (obstacle == null)
 				return;
-
-			Metadata md = lastGenerated.GetComponent<Metadata> ();
-
-			if (md.GetMetadata () != null) {
-				if (md.GetMetadata ().Equals ("obstacle") || md.GetMetadata ().Equals ("apple")) {
-					return;
-				}
-			}
-
 			
 			// if not the first obstacle being spawned
 			if (lastGeneratedObstacle != null) {
@@ -554,10 +532,39 @@ public class WorldGenerator : MonoBehaviour
 				if (Vector3.Distance (position, lastGeneratedObstacle.transform.position) < obstaclePadding)
 					return;
 			}
-			
+
 			// spawn in object
 			lastGeneratedObstacle = (GameObject)Instantiate (obstacle, position, Quaternion.identity);
-			md.SetMetadata ("obstacle");
+		}
+	}
+
+	private void TryForSnowball ()
+	{
+		if(player == null || player.GetLocation() == null) 
+			return;
+
+		if (player.GetLocation ().GetPieceType () == LevelPieceType.BEGIN) {
+			int chance = random.Next (0, 100);
+
+			if (chance <= snowballChance) {
+				 
+
+				if(!firstSnowball)
+				{
+					if ((Time.time < snowballTimestamp)) {
+						return;
+					}
+				}
+
+				Vector3 pos = player.transform.position;
+				pos.y = snowballY;
+				pos.x += 15.0f;
+				Instantiate (snowballPrefab, pos, Quaternion.identity);
+
+				snowballTimestamp = Time.time + snowballCooldown;
+
+				firstSnowball = false;
+			}
 		}
 	}
 

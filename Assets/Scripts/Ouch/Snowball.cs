@@ -5,7 +5,8 @@ public class Snowball : MonoBehaviour
 {
 	// ========================================================================================\\
 
-	private float speed = 5.0f;
+	public ParticleSystem effect;
+	public float speed = 5.0f;
 
 	// ========================================================================================\\
 
@@ -26,6 +27,11 @@ public class Snowball : MonoBehaviour
 				return;
 
 			player.Kill (PlayerDeathCause.SNOWBALL);
+
+			Object o  = Instantiate(effect, transform.position, Quaternion.identity);
+			o.name = "SnowballEffect";
+
+			Destroy (gameObject);
 		}
 	}
 

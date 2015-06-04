@@ -12,6 +12,7 @@ GameObject:
   - 60: {fileID: 6096202}
   - 114: {fileID: 11403976}
   - 114: {fileID: 11473658}
+  - 114: {fileID: 11441584}
   m_Layer: 0
   m_Name: Rock Larger
   m_TagString: Obstacle
@@ -88,6 +89,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c17b773105b13479d72519ace7b389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11441584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba97ebd73947bf54696b325c16de55a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 15
 --- !u!114 &11473658
 MonoBehaviour:
   m_ObjectHideFlags: 1

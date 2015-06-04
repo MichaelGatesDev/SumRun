@@ -130,6 +130,7 @@ public class Player : MonoBehaviour
 			}
 
 			location = new Location (gameObject.transform, biome);
+			location.SetPieceType(lp.GetPieceType());
 		}
 	}
 
