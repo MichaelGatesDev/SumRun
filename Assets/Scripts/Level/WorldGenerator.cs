@@ -542,7 +542,7 @@ public class WorldGenerator : MonoBehaviour
 		if (player == null || player.GetLocation () == null) 
 			return;
 
-		if (player.GetLocation ().GetPieceType () == LevelPieceType.BEGIN) {
+		if (player.GetLocation ().GetPieceType () == LevelPieceType.BEGIN && player.GetLocation().GetBiome() == Biome.WINTER) {
 			int chance = random.Next (0, 100);
 
 			if (chance <= snowballChance) {
@@ -553,7 +553,7 @@ public class WorldGenerator : MonoBehaviour
 
 				Vector3 pos = player.transform.position;
 				pos.y = snowballY;
-				pos.x += 20.0f;
+				pos.x += 30.0f;
 				Instantiate (snowballPrefab, pos, Quaternion.identity);
 
 				snowballTimestamp = Time.time + snowballCooldown;
